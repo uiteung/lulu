@@ -76,32 +76,107 @@
 				</div>
 			</nav>
 
+			<!-- Main Content Start -->
 			<main class="content">
 				<div class="container-fluid p-0">
-
-					<h1 class="h3 mb-3">Blank Page</h1>
-
-					<div class="row">
-						<div class="col-12">
-							<div class="card">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Empty card</h5>
-								</div>
-								<div class="card-body">
-								</div>
+				  <h5 class="right-aligned" style="float: right">
+					<a href="index.html">Home</a> / Dashboard
+				  </h5>
+				  <h1 class="h3 mb-3"><b>Dashboard Data Mahasiswa</b></h1>
+				  <div class="row justify-content-center">
+					<div class="col-12">
+					  <div class="card">
+						<div class="card-header">
+						  <div class="row no-gutters">
+							<div
+							  class="col-md-3"
+							  style="
+								position: absolute;
+								top: 0;
+								right: 0;
+								width: 15%;
+							  ">
+							  <input
+								type="text"
+								class="form-control"
+								id="searchInput"
+								placeholder="Cari" />
 							</div>
+						  </div>
+	  
+						  <hr />
+						  <table
+							id="example"
+							class="table table-striped"
+							style="width: 100%">
+							<thead>
+							  <tr style="text-align: center; vertical-align: middle">
+								<th>NPM</th>
+								<th>Nama Mahasiswa</th>
+								<th>Jurusan</th>
+								<th>Lulusan</th>
+								<th>Action</th>
+							  </tr>
+							</thead>
+							<tbody id="tablebody">
+							  <!-- Isi Tabel -->
+							  <tr>
+								  <td style="text-align: center; vertical-align: middle">
+									  <p class="fw-normal mb-1">1204077</p>
+								  </td>
+								  <td style="text-align: center; vertical-align: middle">
+									  <p class="fw-normal mb-1"><b>Bachtiar Ramadhan</p>
+								  </td>
+								  <td style="text-align: center; vertical-align: middle">
+									  <p class="fw-normal mb-1">D4 Teknik Informatika</p>
+								  </td>
+								  <td style="text-align: center; vertical-align: middle">
+									  <p class="fw-normal mb-1">2024</p>
+								  </td>
+								  <td style="text-align: center; vertical-align: middle">
+									<button class="btn btn-success">Cetak Ijazah</button>
+									<button class="btn btn-warning">Cetak Transkrip Nilai</button>
+									<button class="btn btn-primary">Detail</button>
+								  </td>
+							  </tr>
+							</tbody>
+							<tfoot>
+							  <tr style="text-align: center; vertical-align: middle">
+								<th>NPM</th>
+								<th>Nama Mahasiswa</th>
+								<th>Jurusan</th>
+								<th>Lulusan</th>
+								<th>Action</th>
+							  </tr>
+							</tfoot>
+						  </table>
+						  <div class="row">
+							<div class="col-md-6">
+							  <div class="pagination">
+								<button id="prevPageBtn" class="btn btn-primary">
+								  Previous
+								</button>
+								<span id="currentPage" class="mx-2">Page 1</span>
+								<button id="nextPageBtn" class="btn btn-primary">
+								  Next
+								</button>
+							  </div>
+							</div>
+						  </div>
 						</div>
+					  </div>
 					</div>
-
+				  </div>
 				</div>
-			</main>
+			  </main>
+			  <!-- Main Content End -->
 
 			<footer class="footer">
 				<div class="container-fluid">
 					<div class="row text-muted">
 						<div class="col-6 text-start">
 							<p class="mb-0">
-								<a class="text-muted" href="#" target="_blank"><strong>DTI</strong></a> - <a class="text-muted" href="#" target="_blank"><strong>2023</strong></a>&copy;
+								<a class="text-muted"><strong>DTI ULBI</strong></a> &copy;
 							</p>
 						</div>
 						<div class="col-6 text-end">
