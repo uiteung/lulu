@@ -41,21 +41,41 @@ const cetakIjazahButton = document.getElementById("submitCetakIjazah");
 const apiCetakIjazah = UrlGetIjazahMhs + MhsId
 // Untuk Cetak ijazahnya
 cetakIjazahButton.addEventListener("click", () => {
-  fetch(apiCetakIjazah, {
-    headers: {
-        'LOGIN' : token,
-    }
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data && data.data) {
-        const googleDocsUrl = `https://docs.google.com/document/u/0/d/${data.data}`;
-        window.open(googleDocsUrl, '_blank');
-      } else {
-        console.error("Gagal mengambil data ijazah.");
+    // Tampil SweetAlert Konfirmasi
+    Swal.fire({
+      title: "Cetak Ijazah",
+      text: "Apakah Anda yakin ingin mencetak ijazah?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "OK",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // The user confirmed, proceed with printing
+        fetch(apiCetakIjazah, {
+          headers: {
+            'LOGIN': token,
+          }
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data && data.data) {
+              const googleDocsUrl = `https://docs.google.com/document/u/0/d/${data.data}`;
+              window.open(googleDocsUrl, '_blank');
+              
+              // Show a success message using SweetAlert
+              Swal.fire({
+                title: "Berhasil",
+                text: "Ijazah berhasil dicetak!",
+                icon: "success",
+              });
+            } else {
+              console.error("Gagal mengambil data ijazah.");
+            }
+          })
+          .catch((error) => {
+            console.error("Terjadi kesalahan saat mengambil data ijazah:", error);
+          });
       }
-    })
-    .catch((error) => {
-      console.error("Terjadi kesalahan saat mengambil data ijazah:", error);
     });
-});
+  });
