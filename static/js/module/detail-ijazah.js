@@ -43,9 +43,9 @@ const apiCetakIjazah = UrlGetIjazahMhs + MhsId
 cetakIjazahButton.addEventListener("click", () => {
     // Tampil SweetAlert Konfirmasi
     Swal.fire({
-      title: "Cetak Ijazah",
+      title: "Konfirmasi Cetak Ijazah",
       text: "Apakah Anda yakin ingin mencetak ijazah?",
-      icon: "warning",
+      icon: "question",
       showCancelButton: true,
       confirmButtonText: "OK",
       cancelButtonText: "Batal",
