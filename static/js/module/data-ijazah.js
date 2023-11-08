@@ -67,33 +67,52 @@ document.addEventListener("DOMContentLoaded", function () {
                 button.addEventListener('click', (event) => {
                     const MhsId = event.target.getAttribute('data-ijazah');
                     const cetakIjazahUrl = `https://lulusan.ulbi.ac.id/lulusan/ijazah/${MhsId}`;
-                    // Mengambil data dari endpoint GET dengan menyertakan header otentikasi
-                    fetch(cetakIjazahUrl, {
-                        headers: {
-                            'LOGIN': token, // Gantilah 'LOGIN' dengan nama header yang sesuai
+                    
+                    // Menampilkan Alert Konfirmasi
+                    Swal.fire({
+                        title: 'Konfirmasi Cetak Ijazah',
+                        text: 'Apakah Anda yakin ingin mencetak ijazah?',
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonText: 'OK',
+                        cancelButtonText: 'Batal',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // The user confirmed, proceed with fetching and printing the document
+                            fetch(cetakIjazahUrl, {
+                                headers: {
+                                    'LOGIN': token, // Gantilah 'LOGIN' dengan nama header yang sesuai
+                                }
+                            })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Gagal mengambil data');
+                                    }
+                                    return response.json(); // Mengambil respons dalam format JSON
+                                })
+                                .then(data => {
+                                    // Pastikan respons memiliki atribut "data"
+                                    if (data && data.data) {
+                                        const googleDocsUrl = `https://docs.google.com/document/u/0/d/${data.data}`;
+                                        // Membuka halaman Google Docs di jendela baru
+                                        window.open(googleDocsUrl, '_blank');
+                                        // Menampilkan Alert Success
+                                        Swal.fire({
+                                            title: 'Berhasil',
+                                            text: 'Ijazah berhasil dicetak!',
+                                            icon: 'success',
+                                        });
+                                    } else {
+                                        console.error('Data tidak ditemukan dalam respons.');
+                                        // Tampilkan pesan kesalahan jika data tidak ditemukan dalam respons
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Terjadi kesalahan:', error);
+                                    // Tampilkan pesan kesalahan kepada pengguna jika diperlukan
+                                });
                         }
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Gagal mengambil data');
-                            }
-                            return response.json(); // Mengambil respons dalam format JSON
-                        })
-                        .then(data => {
-                            // Pastikan respons memiliki atribut "data"
-                            if (data && data.data) {
-                                const googleDocsUrl = `https://docs.google.com/document/u/0/d/${data.data}`;
-                                // Membuka halaman Google Docs di jendela baru
-                                window.open(googleDocsUrl, '_blank');
-                            } else {
-                                console.error('Data tidak ditemukan dalam respons.');
-                                // Tampilkan pesan kesalahan jika data tidak ditemukan dalam respons
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Terjadi kesalahan:', error);
-                            // Tampilkan pesan kesalahan kepada pengguna jika diperlukan
-                        });
+                    });
                 });
             });
             } else {
