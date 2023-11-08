@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 button.addEventListener('click', (event) => {
                     const MhsId = event.target.getAttribute('data-ijazah');
                     // Mengarahkan ke halaman detail-ijazah.html dengan mengirimkan parameter MhsId
-                    window.location.href = `detail-ijazah.html?MhsId=${MhsId}`;
+                    window.open(`detail-ijazah.html?MhsId=${MhsId}`, '_blank');
                 });
             });
             
@@ -67,7 +67,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 button.addEventListener('click', (event) => {
                     const MhsId = event.target.getAttribute('data-ijazah');
                     const cetakIjazahUrl = `https://lulusan.ulbi.ac.id/lulusan/ijazah/${MhsId}`;
-
                     // Mengambil data dari endpoint GET dengan menyertakan header otentikasi
                     fetch(cetakIjazahUrl, {
                         headers: {
@@ -81,9 +80,15 @@ document.addEventListener("DOMContentLoaded", function () {
                             return response.json(); // Mengambil respons dalam format JSON
                         })
                         .then(data => {
-                            // Lakukan apa pun yang Anda inginkan dengan data yang diterima
-                            console.log('Data yang diterima:', data);
-                            // Misalnya, Anda dapat menampilkan data dalam modal atau tampilan khusus
+                            // Pastikan respons memiliki atribut "data"
+                            if (data && data.data) {
+                                const googleDocsUrl = `https://docs.google.com/document/u/0/d/${data.data}`;
+                                // Membuka halaman Google Docs di jendela baru
+                                window.open(googleDocsUrl, '_blank');
+                            } else {
+                                console.error('Data tidak ditemukan dalam respons.');
+                                // Tampilkan pesan kesalahan jika data tidak ditemukan dalam respons
+                            }
                         })
                         .catch(error => {
                             console.error('Terjadi kesalahan:', error);
