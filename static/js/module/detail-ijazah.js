@@ -38,18 +38,18 @@ CihuyDataAPI(UrlGetMhsLulusan + `${MhsId}`, token, (error, result) => {
 // Untuk Cetak Ijazah Mahasiswa by Id
 // Mendefinisikan button untuk cetak terlebih dahulu
 const cetakIjazahButton = document.getElementById("submitCetakIjazah");
+const apiCetakIjazah = UrlGetIjazahMhs + MhsId
 // Untuk Cetak ijazahnya
 cetakIjazahButton.addEventListener("click", () => {
-  fetch(UrlGetMhsLulusan + `${MhsId}`, {
+  fetch(apiCetakIjazah, {
     headers: {
         'LOGIN' : token,
     }
   })
     .then((response) => response.json())
     .then((data) => {
-      if (data.code === 200 && data.success) {
-        const docId = data.data;
-        const googleDocsUrl = `https://docs.google.com/document/u/0/d/${docId}`;
+      if (data && data.data) {
+        const googleDocsUrl = `https://docs.google.com/document/u/0/d/${data.data}`;
         window.open(googleDocsUrl, '_blank');
       } else {
         console.error("Gagal mengambil data ijazah.");
