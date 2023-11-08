@@ -46,36 +46,36 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             });
             
-            // // Menambahkan event listener untuk button "Cetak Ijazah"
-            // const cetakIjazahButtons = document.querySelectorAll('.btn-success');
-            // cetakIjazahButtons.forEach(button => {
-            //     button.addEventListener('click', (event) => {
-            //         const MhsId = event.target.getAttribute('data-ijazah');
-            //         const cetakIjazahUrl = `https://lulusan.ulbi.ac.id/lulusan/ijazah/${MhsId}`;
+            // Menambahkan event listener untuk button "Cetak Ijazah"
+            const cetakIjazahButtons = document.querySelectorAll('.btn-success');
+            cetakIjazahButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const MhsId = event.target.getAttribute('data-ijazah');
+                    const cetakIjazahUrl = `https://lulusan.ulbi.ac.id/lulusan/ijazah/${MhsId}`;
 
-            //         // Mengambil data dari endpoint GET dengan menyertakan header otentikasi
-            //         fetch(cetakIjazahUrl, {
-            //             headers: {
-            //                 'LOGIN': token, // Gantilah 'LOGIN' dengan nama header yang sesuai
-            //             }
-            //         })
-            //             .then(response => {
-            //                 if (!response.ok) {
-            //                     throw new Error('Gagal mengambil data');
-            //                 }
-            //                 return response.json(); // Mengambil respons dalam format JSON
-            //             })
-            //             .then(data => {
-            //                 // Lakukan apa pun yang Anda inginkan dengan data yang diterima
-            //                 console.log('Data yang diterima:', data);
-            //                 // Misalnya, Anda dapat menampilkan data dalam modal atau tampilan khusus
-            //             })
-            //             .catch(error => {
-            //                 console.error('Terjadi kesalahan:', error);
-            //                 // Tampilkan pesan kesalahan kepada pengguna jika diperlukan
-            //             });
-            //     });
-            // });
+                    // Mengambil data dari endpoint GET dengan menyertakan header otentikasi
+                    fetch(cetakIjazahUrl, {
+                        headers: {
+                            'LOGIN': token, // Gantilah 'LOGIN' dengan nama header yang sesuai
+                        }
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Gagal mengambil data');
+                            }
+                            return response.json(); // Mengambil respons dalam format JSON
+                        })
+                        .then(data => {
+                            // Lakukan apa pun yang Anda inginkan dengan data yang diterima
+                            console.log('Data yang diterima:', data);
+                            // Misalnya, Anda dapat menampilkan data dalam modal atau tampilan khusus
+                        })
+                        .catch(error => {
+                            console.error('Terjadi kesalahan:', error);
+                            // Tampilkan pesan kesalahan kepada pengguna jika diperlukan
+                        });
+                });
+            });
             } else {
               // Tampilkan pesan kesalahan jika permintaan tidak berhasil
               tableBody.innerHTML = `<tr><td colspan="5">${data.status}</td></tr>`;
