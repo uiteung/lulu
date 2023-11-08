@@ -1,9 +1,4 @@
-import {
-    CihuyDataAPI,
-    // CihuyPostApi,
-    // CihuyUpdateApi,
-    // CihuyDeleteAPI,
-  } from "https://c-craftjs.github.io/lulu/api.js";
+import { CihuyDataAPI } from "https://c-craftjs.github.io/lulu/api.js";
 import { UrlGetLulusan } from "../template/template.js";
 import { token } from "../template/template.js";
 
