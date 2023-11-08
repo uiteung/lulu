@@ -1,6 +1,16 @@
 import { CihuyDataAPI } from "https://c-craftjs.github.io/lulu/api.js";
+import { CihuyDomReady, CihuyQuerySelector } from "https://c-craftjs.github.io/table/table.js";
+import { CihuyId } from "https://c-craftjs.github.io/element/element.js";
 import { UrlGetLulusan } from "../template/template.js";
 import { token } from "../template/template.js";
+
+CihuyDomReady(() => {
+  const tablebody = CihuyId("tablebody");
+  const buttonsebelumnya = CihuyId("prevPageBtn");
+  const buttonselanjutnya = CihuyId("nextPageBtn");
+  const halamansaatini = CihuyId("currentPage");
+  const itemperpage = 10;
+  let halamannow = 1;
 
 // Untuk GET All Data Ijazah berdasarkan TahunId
 document.addEventListener("DOMContentLoaded", function () {
@@ -36,6 +46,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 `;
                 tableBody.appendChild(row);
               });
+
+            // Untuk Memunculkan Pagination Halamannya
+            displayData(halamannow);
+			      updatePagination();
+              
             // Menambahkan event listener untuk button "Detail"
             const detailButtons = document.querySelectorAll('.btn-primary');
             detailButtons.forEach(button => {
@@ -82,6 +97,42 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           }
         });
+        // Fungsi Untuk Menampilkan Data
+        function displayData(page) {
+          const baris = CihuyQuerySelector("#tablebody tr");
+          const mulaiindex = (page - 1) * itemperpage;
+          const akhirindex = mulaiindex + itemperpage;
+          for (let i = 0; i < baris.length; i++) {
+              if (i >= mulaiindex && i < akhirindex) {
+                  baris[i].style.display = "table-row";
+              } else {
+                  baris[i].style.display = "none";
+              }
+          }
+        }
+
+        // Fungsi Untuk Update Pagination
+        function updatePagination() {
+          halamansaatini.textContent = `Halaman ${halamannow}`;
+        }
+        buttonsebelumnya.addEventListener("click", () => { // Button Pagination (Sebelumnya)
+          if (halamannow > 1) {
+              halamannow--;
+              displayData(halamannow);
+              updatePagination();
+          }
+        });
+        buttonselanjutnya.addEventListener("click", () => {// Button Pagination (Selanjutnya)
+          const totalPages = Math.ceil(
+              tablebody.querySelectorAll("#tablebody tr").length / itemperpage
+          );
+          if (halamannow < totalPages) {
+              halamannow++;
+              displayData(halamannow);
+              updatePagination();
+          }
+        });
       }
     });
   });
+});
