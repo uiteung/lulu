@@ -42,11 +42,14 @@ document.addEventListener("DOMContentLoaded", function () {
               data.data.forEach((mahasiswa) => {
                 const row = document.createElement("tr");
                 row.innerHTML = `
-                  <td>${mahasiswa.MhswId}</td>
-                  <td>${mahasiswa.nama}</td>
-                  <td>${mahasiswa.nik}</td>
-                  <td>${mahasiswa.prodi}</td>
-                  <td><button class="btn btn-primary">Detail</button></td>
+                  <td style="text-align: center; vertical-align: middle">${mahasiswa.MhswId}</td>
+                  <td style="text-align: center; vertical-align: middle">${mahasiswa.nama}</td>
+                  <td style="text-align: center; vertical-align: middle">${mahasiswa.nik}</td>
+                  <td style="text-align: center; vertical-align: middle">${mahasiswa.prodi}</td>
+                  <td style="text-align: center; vertical-align: middle">
+                    <button type="button" class="btn btn-primary" data-ijazah="${mahasiswa.MhswId}">Detail</button>
+                    <button type="button" class="btn btn-success" data-ijazah="${mahasiswa.MhswId}">Cetak Ijazah</button>
+                  </td>
                 `;
                 tableBody.appendChild(row);
               });
