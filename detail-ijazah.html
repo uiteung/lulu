@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="static/img/icons/Logo ULBI Dark Potrait.png" />
+
+	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
+
+	<title>Lulu ULBI</title>
+
+	<link href="static/css/app.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<div class="wrapper">
+		<nav id="sidebar" class="sidebar js-sidebar">
+			<div class="sidebar-content js-simplebar">
+				<a class="sidebar-brand" href="index.html">
+          <img src="static/img/photos/Logo ULBI Wide Nevy.png" alt="" style="width: 130px; margin-left: 35px;">
+        </a>
+
+				<ul class="sidebar-nav">
+					<li class="sidebar-header">
+						Cetak Ijazah & Transkrip
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="index.html">
+              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="transkrip-nilai.html">
+              <i class="align-middle" data-feather="list"></i> <span class="align-middle">Transkrip Nilai</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item active">
+						<a class="sidebar-link" href="data-ijazah.html">
+              <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Data Ijazah</span>
+            </a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="main">
+			<nav class="navbar navbar-expand navbar-light navbar-bg">
+				<a class="sidebar-toggle js-sidebar-toggle">
+          <i class="hamburger align-self-center"></i>
+        </a>
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav navbar-align">						
+						<li class="nav-item dropdown">
+							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+                <i class="align-middle" data-feather="settings"></i>
+              </a>
+							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                <img src="static/img/avatars/admin-icon.png" class="avatar img-fluid rounded me-1" alt="Admin" /> <span class="text-dark">Admin</span>
+              </a>
+							<div class="dropdown-menu dropdown-menu-end">
+								<a class="dropdown-item" href="#">Log out</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			<!-- Main Content Start -->
+			<main class="content">
+				<div class="container-fluid p-0">
+					<h5 class="right-aligned" style="float: right">
+						<a href="index.html">Home</a> / <a href="data-ijazah.html">Data Ijazah</a> / Detail Ijazah Mahasiswa
+					  </h5>
+					<h1 class="h3 mb-3"><b>Data Detail Ijazah Mahasiswa</b></h1>
+				</div>
+
+                <!-- Data Profil Mahasiswa -->
+                <h1 class="h4 mb-3">Data Profil Mahasiswa</h1>
+                <div class="row">
+                    <div class="col-12">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col">
+                                <form>
+                                    <!-- 2 column grid layout with text inputs for the first and last names -->
+                                    <div class="row mb-2">
+                                    <!-- NPM -->
+                                    <div class="col">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="form6Example1">NPM</label>
+                                            <input type="text" id="npm" class="form-control" value=""/>
+                                        </div>
+                                    </div>
+                                    <!-- Nama Mahasiswa -->
+                                    <div class="col">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="form6Example2">Nama Mahasiswa</label>
+                                        <input type="text" id="nama_mahasiswa" class="form-control" value=""/>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <!-- NIK -->
+                                        <div class="col">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="form6Example1">Nomor Induk Kependudukan (NIK)</label>
+                                                <input type="text" id="nik" class="form-control" value=""/>
+                                            </div>
+                                        </div>
+                                        <!-- No Handphone -->
+                                        <div class="col">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="form6Example2">No Handphone</label>
+                                            <input type="text" id="no_hp" class="form-control" value=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <!-- Tempat Lahir -->
+                                        <div class="col">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="form6Example1">Tempat Lahir</label>
+                                                <input type="text" id="tempat_lahir" class="form-control" value=""/>
+                                            </div>
+                                        </div>
+                                        <!-- Tanggal Lahir -->
+                                        <div class="col">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="form6Example2">Tanggal Lahir</label>
+                                            <input type="text" id="tgl_lahir" class="form-control" value=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <!-- Email -->
+                                        <div class="col">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="form6Example1">Email</label>
+                                                <input type="text" id="email" class="form-control" value=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+                <!-- Data Ijazah Mahasiswa -->
+                <h1 class="h4 mb-3">Data Ijazah Mahasiswa</h1>
+                <div class="row">
+                    <div class="col-12">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col">
+                                <form>
+                                    <!-- 2 column grid layout with text inputs for the first and last names -->
+                                    <div class="row mb-2">
+                                    <!-- Program Studi -->
+                                    <div class="col">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="form6Example1">Program Studi</label>
+                                            <input type="text" id="form6Example1" class="form-control" value=""/>
+                                        </div>
+                                    </div>
+                                    <!-- Gelar -->
+                                    <div class="col">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="form6Example2">Gelar</label>
+                                        <input type="text" id="form6Example2" class="form-control" value=""/>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <!-- Nomor Ijazah -->
+                                        <div class="col">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="form6Example1">Nomor Ijazah</label>
+                                                <input type="text" id="form6Example1" class="form-control" value=""/>
+                                            </div>
+                                        </div>
+                                        <!-- Nomor SK Ijazah -->
+                                        <div class="col">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="form6Example2">Nomor SK Ijazah</label>
+                                            <input type="text" id="form6Example2" class="form-control" value=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <!-- Tanggal Lulus -->
+                                        <div class="col">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="form6Example1">Tanggal Lulus</label>
+                                                <input type="text" id="form6Example1" class="form-control" value=""/>
+                                            </div>
+                                        </div>
+                                        <!-- Tanggal SK Lulus -->
+                                        <div class="col">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="form6Example2">Tanggal SK Lulus</label>
+                                            <input type="text" id="form6Example2" class="form-control" value=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <!-- Judul Tugas Akhir -->
+                                        <div class="col">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="form6Example1">Judul Tugas Akhir</label>
+                                                <input type="text" id="form6Example1" class="form-control" value=""/>
+                                            </div>
+                                        </div>
+                                        <!-- Tahun Id -->
+                                        <div class="col">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="form6Example2">Tahun Id</label>
+                                            <input type="text" id="form6Example2" class="form-control" value=""/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+			</main>
+			<!-- Main Content End -->
+
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="row text-muted">
+						<div class="col-6 text-start">
+							<p class="mb-0">
+								<a class="text-muted"><strong>DTI ULBI</strong></a> &copy;
+							</p>
+						</div>
+						<div class="col-6 text-end">
+							<ul class="list-inline">
+								<li class="list-inline-item">
+									<a class="text-muted" href="#" target="_blank">Help Center</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+
+	<script src="static/js/app.js"></script>
+	<script src="static/js/module/data-ijazah.js" type="module"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</body>
+
+</html>
