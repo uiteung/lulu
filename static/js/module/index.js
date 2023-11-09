@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   <td style="text-align: center; vertical-align: middle">${mahasiswa.nik}</td>
                   <td style="text-align: center; vertical-align: middle">${mahasiswa.prodi}</td>
                   <td style="text-align: center; vertical-align: middle">
-                    <button type="button" class="btn btn-primary" data-ijazah="${mahasiswa.MhswId}">Cetak Transkrip Nilai</button>
+                    <button type="button" class="btn btn-primary" data-transkrip="${mahasiswa.MhswId}">Cetak Transkrip Nilai</button>
                     <button type="button" class="btn btn-success" data-ijazah="${mahasiswa.MhswId}">Cetak Ijazah</button>
                   </td>
                 `;
@@ -52,14 +52,12 @@ document.addEventListener("DOMContentLoaded", function () {
 			      updatePagination();
               
             // Menambahkan event listener untuk button "Detail"
-            const detailButtons = document.querySelectorAll('.btn-primary');
-            detailButtons.forEach(button => {
-                button.addEventListener('click', (event) => {
-                    const MhsId = event.target.getAttribute('data-ijazah');
-                    // Mengarahkan ke halaman detail-ijazah.html dengan mengirimkan parameter MhsId
-                    window.open(`detail-ijazah.html?MhsId=${MhsId}`, '_blank');
-                });
-            });
+            // const detailButtons = document.querySelectorAll('.btn-primary');
+            // detailButtons.forEach(button => {
+            //     button.addEventListener('click', (event) => {
+            //         const MhsId = event.target.getAttribute('data-transkrip');
+            //     });
+            // });
             
             // Menambahkan event listener untuk button "Cetak Ijazah"
             const cetakIjazahButtons = document.querySelectorAll('.btn-success');
