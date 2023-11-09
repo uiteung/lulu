@@ -39,43 +39,59 @@ CihuyDataAPI(UrlGetMhsLulusan + `${MhsId}`, token, (error, result) => {
 // Mendefinisikan button untuk cetak terlebih dahulu
 const cetakIjazahButton = document.getElementById("submitCetakIjazah");
 const apiCetakIjazah = UrlGetIjazahMhs + MhsId
-// Untuk Cetak ijazahnya
+
 cetakIjazahButton.addEventListener("click", () => {
     // Tampil SweetAlert Konfirmasi
     Swal.fire({
-      title: "Konfirmasi Cetak Ijazah",
-      text: "Apakah Anda yakin ingin mencetak ijazah?",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonText: "OK",
-      cancelButtonText: "Batal",
+        title: "Konfirmasi Cetak Ijazah",
+        text: "Apakah Anda yakin ingin mencetak ijazah?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "OK",
+        cancelButtonText: "Batal",
     }).then((result) => {
-      if (result.isConfirmed) {
-        // The user confirmed, proceed with printing
-        fetch(apiCetakIjazah, {
-          headers: {
-            'LOGIN': token,
-          }
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data && data.data) {
-              const googleDocsUrl = `https://docs.google.com/document/u/0/d/${data.data}`;
-              window.open(googleDocsUrl, '_blank');
+        if (result.isConfirmed) {
+            // Menampilkan SweetAlert "Tunggu" saat proses cetak dimulai
+            Swal.fire({
+                icon: 'info',
+                title: "Sedang mencetak Ijazah",
+                html: "Proses cetak ijazah sedang berlangsung. Mohon tunggu.",
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading();
+                    Swal.getPopup().querySelector("b");
+                }
+            });
+            // The user confirmed, proceed with printing
+            fetch(apiCetakIjazah, {
+                headers: {
+                    'LOGIN': token,
+                }
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data && data.data) {
+                    const googleDocsUrl = `https://docs.google.com/document/u/0/d/${data.data}`;
+                    window.open(googleDocsUrl, '_blank');
               
-              // Show a success message using SweetAlert
-              Swal.fire({
-                title: "Berhasil",
-                text: "Ijazah berhasil dicetak!",
-                icon: "success",
-              });
-            } else {
-              console.error("Gagal mengambil data ijazah.");
-            }
-          })
-          .catch((error) => {
-            console.error("Terjadi kesalahan saat mengambil data ijazah:", error);
-          });
-      }
+                    // Menutup SweetAlert "Tunggu" dan menampilkan SweetAlert "Berhasil"
+                    Swal.close(); // Menutup SweetAlert "Tunggu"
+                    Swal.fire({
+                        title: "Berhasil",
+                        text: "Ijazah berhasil dicetak!",
+                        icon: "success",
+                    });
+                } else {
+                    console.error("Gagal mengambil data ijazah.");
+                    // Tampilkan pesan kesalahan jika data ijazah tidak ditemukan
+                    Swal.close(); // Menutup SweetAlert "Tunggu"
+                }
+            })
+            .catch((error) => {
+                console.error("Terjadi kesalahan saat mengambil data ijazah:", error);
+                // Tampilkan pesan kesalahan jika terjadi kesalahan
+                Swal.close(); // Menutup SweetAlert "Tunggu"
+            });
+        }
     });
-  });
+});

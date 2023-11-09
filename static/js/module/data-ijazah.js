@@ -80,14 +80,15 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (result.isConfirmed) {
                             // Menampilkan SweetAlert "Tunggu" saat proses cetak dimulai
                             Swal.fire({
-                                title: 'Sedang mencetak Ijazah',
-                                html: 'Proses cetak ijazah sedang berlangsung. Mohon tunggu...',
-                                icon: 'info',
-                                showConfirmButton: false,
-                                allowOutsideClick: false,
-                                allowEscapeKey: false,
-                                allowEnterKey: false,
-                            });
+                              icon: 'info',
+                              title: "Sedang mencetak Ijazah",
+                              html: "Proses cetak ijazah sedang berlangsung. Mohon tunggu.",
+                              timerProgressBar: true,
+                              didOpen: () => {
+                                  Swal.showLoading();
+                                  Swal.getPopup().querySelector("b");
+                              }
+                          });
 
                             // Fetch cetakIjazahUrl
                             fetch(cetakIjazahUrl, {
