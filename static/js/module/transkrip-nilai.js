@@ -40,8 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
                   <td style="text-align: center; vertical-align: middle">${mahasiswa.nik}</td>
                   <td style="text-align: center; vertical-align: middle">${mahasiswa.prodi}</td>
                   <td style="text-align: center; vertical-align: middle">
-                    <button type="button" class="btn btn-primary" data-ijazah="${mahasiswa.MhswId}">Detail</button>
-                    <button type="button" class="btn btn-success" data-ijazah="${mahasiswa.MhswId}">Cetak Transkrip Nilai</button>
+                    <button type="button" class="btn btn-primary" data-transkrip="${mahasiswa.MhswId}">Detail</button>
+                    <button type="button" class="btn btn-success" data-transkrip="${mahasiswa.MhswId}">Cetak Transkrip Nilai</button>
                   </td>
                 `;
                 tableBody.appendChild(row);
@@ -50,6 +50,16 @@ document.addEventListener("DOMContentLoaded", function () {
             // Untuk Memunculkan Pagination Halamannya
             displayData(halamannow);
 			      updatePagination();
+
+            // Menambahkan event listener untuk button "Detail"
+            const detailButtons = document.querySelectorAll('.btn-primary');
+            detailButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const MhsId = event.target.getAttribute('data-transkrip');
+                    // Mengarahkan ke halaman detail-ijazah.html dengan mengirimkan parameter MhsId
+                    window.open(`detail-transkrip.html?MhsId=${MhsId}`, '_blank');
+                });
+            });
             } else {
               // Tampilkan pesan kesalahan jika permintaan tidak berhasil
               tableBody.innerHTML = `<tr><td colspan="5">${data.status}</td></tr>`;
