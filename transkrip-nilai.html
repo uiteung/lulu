@@ -84,22 +84,93 @@
 			<!-- Main Content Start -->
 			<main class="content">
 				<div class="container-fluid p-0">
-
+					<h5 class="right-aligned" style="float: right">
+						<a href="index.html">Home</a> / Data Transkrip Nilai
+					  </h5>
 					<h1 class="h3 mb-3"><b>Data Transkrip Nilai</b></h1>
-
 					<div class="row">
 						<div class="col-12">
-							<div class="card">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Empty card</h5>
-								</div>
-								<div class="card-body">
-								</div>
+						  <div class="card">
+							<div class="card-header">
+							  <h5 class="card-title mb-3">Tahun Id</h5>
+							  <div class="input-group">
+								<input type="text" id="tahunid" class="form-control" placeholder="Masukkan Tahun Id">
+								<button class="btn btn-primary ml-2" id="cariMahasiswaBtn" >Cari Mahasiswa</button>
+							  </div>
 							</div>
+						  </div>
 						</div>
-					</div>
-
+					  </div>
 				</div>
+
+				<div class="container-fluid p-0">
+					<div class="row justify-content-center">
+					  <div class="col-12">
+						<div class="card">
+						  <div class="card-header">
+							<div class="row no-gutters">
+							  <div
+								class="col-md-3"
+								style="
+								  position: absolute;
+								  top: 0;
+								  right: 0;
+								  width: 15%;
+								  margin-top: 10px;
+								">
+								<input
+								  type="text"
+								  class="form-control"
+								  id="searchInput"
+								  placeholder="Cari" />
+							  </div>
+							</div>
+							<br>
+							<hr />
+							<table
+							  id="example"
+							  class="table table-striped"
+							  style="width: 100%">
+							  <thead>
+								<tr style="text-align: center; vertical-align: middle">
+								  <th>NPM</th>
+								  <th>Nama Mahasiswa</th>
+								  <th>NIK</th>
+								  <th>Program Studi</th>
+								  <th>Action</th>
+								</tr>
+							  </thead>
+							  <tbody id="tablebody">
+								<!-- Isi Tabel -->
+							  </tbody>
+							  <tfoot>
+								<tr style="text-align: center; vertical-align: middle">
+								  <th>NPM</th>
+								  <th>Nama Mahasiswa</th>
+								  <th>NIK</th>
+								  <th>Program Studi</th>
+								  <th>Action</th>
+								</tr>
+							  </tfoot>
+							</table>
+							<div class="row">
+							  <div class="col-md-6">
+								<div class="pagination">
+								  <button id="prevPageBtn" class="btn btn-primary">
+									Previous
+								  </button>
+								  <span id="currentPage" class="mx-2">Page 1</span>
+								  <button id="nextPageBtn" class="btn btn-primary">
+									Next
+								  </button>
+								</div>
+							  </div>
+							</div>
+						  </div>
+						</div>
+					  </div>
+					</div>
+				  </div>
 			</main>
 			<!-- Main Content End -->
 
@@ -132,6 +203,7 @@
 	
 	<script src="static/js/style.js"></script>
 	<script src="static/js/app.js"></script>
+	<script src="static/js/module/transkrip-nilai.js" type="module"></script>
 
 </body>
 
