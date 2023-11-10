@@ -61,7 +61,7 @@ CihuyDomReady(() => {
                                   <td style="text-align: center; vertical-align: middle">${mahasiswa.nik}</td>
                                   <td style="text-align: center; vertical-align: middle">${mahasiswa.prodi}</td>
                                   <td style="text-align: center; vertical-align: middle">
-                                      <button type="button" class="btn btn-primary" data-ijazah="${mahasiswa.MhswId}">Detail</button>
+                                      <button type="button" class="btn btn-info" data-ijazah="${mahasiswa.MhswId}">Detail</button>
                                       <button type="button" class="btn btn-success" data-ijazah="${mahasiswa.MhswId}">Cetak Ijazah</button>
                                   </td>
                               `;
@@ -110,7 +110,7 @@ CihuyDomReady(() => {
 
   function addDetailButtonListeners() {
       // Menambahkan event listener untuk button "Detail"
-      const detailButtons = document.querySelectorAll('.btn-primary');
+      const detailButtons = document.querySelectorAll('.btn-info');
       detailButtons.forEach(button => {
           button.addEventListener('click', handleDetailButtonClick);
       });
