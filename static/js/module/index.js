@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   <td style="text-align: center; vertical-align: middle">${mahasiswa.nik}</td>
                   <td style="text-align: center; vertical-align: middle">${mahasiswa.prodi}</td>
                   <td style="text-align: center; vertical-align: middle">
-                    <button type="button" class="btn btn-primary" data-transkrip="${mahasiswa.MhswId}">Cetak Transkrip Nilai</button>
+                    <button type="button" class="btn btn-info" data-transkrip="${mahasiswa.MhswId}">Cetak Transkrip Nilai</button>
                     <button type="button" class="btn btn-success" data-ijazah="${mahasiswa.MhswId}">Cetak Ijazah</button>
                   </td>
                 `;
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			      updatePagination();
               
             // Menambahkan event listener untuk button "Detail"
-            // const detailButtons = document.querySelectorAll('.btn-primary');
+            // const detailButtons = document.querySelectorAll('.btn-info');
             // detailButtons.forEach(button => {
             //     button.addEventListener('click', (event) => {
             //         const MhsId = event.target.getAttribute('data-transkrip');
