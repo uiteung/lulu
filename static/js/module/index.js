@@ -120,7 +120,18 @@ CihuyDomReady(() => {
           cancelButtonText: 'Batal',
       }).then((result) => {
           if (result.isConfirmed) {
-              // The user confirmed, proceed with fetching and printing the document
+              // Menampilkan SweetAlert "Tunggu" saat proses cetak dimulai
+              Swal.fire({
+                  icon: 'info',
+                  title: "Sedang mencetak Ijazah",
+                  html: "Proses cetak ijazah sedang berlangsung. Mohon tunggu.",
+                  timerProgressBar: true,
+                  didOpen: () => {
+                      Swal.showLoading();
+                      Swal.getPopup().querySelector("b");
+                  }
+              });
+              // Fetch cetakIjazahUrl
               fetch(cetakIjazahUrl, {
                   headers: {
                       'LOGIN': token, // Gantilah 'LOGIN' dengan nama header yang sesuai
