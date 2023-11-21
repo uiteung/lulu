@@ -19,6 +19,13 @@
 	<link href="static/css/app.css" rel="stylesheet">
 	<link rel="stylesheet" href="static/css/style.css">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	<script src="static/js/external/jquery-3.6.4.min.js"></script>
+    <script>
+        $(function(){
+            // Menggunakan jQuery load untuk menyertakan file navbar.html
+            $("#navbar-container").load("navbar.html");
+        });
+    </script>
 </head>
 
 <body>
@@ -26,8 +33,8 @@
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
 				<a class="sidebar-brand" href="index.html">
-          <img src="static/img/photos/Logo ULBI Wide Nevy.png" alt="" style="width: 130px; margin-left: 35px;">
-        </a>
+					<img src="static/img/photos/Logo ULBI Wide Nevy.png" alt="" style="width: 130px; margin-left: 35px;">
+				</a>
 
 				<ul class="sidebar-nav">
 					<li class="sidebar-header">

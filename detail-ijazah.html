@@ -19,53 +19,21 @@
 	<link href="static/css/app.css" rel="stylesheet">
     <link rel="stylesheet" href="static/css/style.css">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	<script src="static/js/external/jquery-3.6.4.min.js"></script>
+    <script>
+        $(function(){
+            // Menggunakan jQuery load untuk menyertakan file navbar.html
+            $("#navbar-container").load("static/navbar.html");
+        });
+    </script>
 </head>
 
 <body>
 	<div class="wrapper">
-		<nav id="sidebar" class="sidebar js-sidebar">
-			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="index.html">
-					<img src="static/img/photos/Logo ULBI Wide Nevy.png" alt="" style="width: 130px; margin-left: 35px;">
-				</a>
+		<!-- Container Navigation Bar -->
+		<div id="navbar-container"></div>
 
-				<ul class="sidebar-nav">
-					<!-- Main Menu-->
-					<li class="sidebar-header">
-						Cetak Ijazah & Transkrip
-					</li>
-					<!-- Navbar - Dsahboard -->
-					<li class="sidebar-item active">
-						<a class="sidebar-link" href="index.html">
-              				<i class="align-middle" data-feather="sliders"></i>
-							<span class="align-middle">Dashboard
-								<span class="badge-warning" style="font-size: 10px; background-color: #ff8700; color: white; padding: 2px 4px; border-radius: 5px;">
-									Maintenance
-								</span>
-							</span>
-						</a>
-					</li>
-
-					<!-- Navbar - Transkrip -->
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="transkrip-nilai.html">
-						<i class="align-middle" data-feather="list"></i> 
-						<span class="align-middle">Transkrip Nilai
-							<span class="badge-warning" style="font-size: 10px; background-color: #ff8700; color: white; padding: 2px 4px; border-radius: 5px;">Maintenance</span>
-							</span>
-						</a>
-					</li>
-
-					<!-- Navbar - Data Ijazah -->
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="data-ijazah.html">
-							<i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Data Ijazah</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
-
+        <!-- Main Content Start -->
 		<div class="main">
 			<nav class="navbar navbar-expand navbar-light navbar-bg">
 				<a class="sidebar-toggle js-sidebar-toggle">
