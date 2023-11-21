@@ -22,8 +22,8 @@
 	<script src="static/js/external/jquery-3.6.4.min.js"></script>
     <script>
         $(function(){
-            // Menggunakan jQuery load untuk menyertakan file navbar.html
             $("#navbar-container").load("static/navbar.html");
+            $("#Footer-container").load("static/footer.html");
         });
     </script>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" /></head>
@@ -269,24 +269,7 @@
 			<!-- Main Content End -->
 
 			<!-- Footer Start -->
-			<footer class="footer">
-				<div class="container-fluid">
-					<div class="row text-muted">
-						<div class="col-6 text-start">
-							<p class="mb-0">
-								<a class="text-muted"><strong>DTI ULBI</strong></a> &copy;
-							</p>
-						</div>
-						<div class="col-6 text-end">
-							<ul class="list-inline">
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://api.whatsapp.com/send?phone=6281222445452" target="_blank">Help Center</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</footer>
+			<div id="Footer-container"></div>
 			<!-- Footer End -->
 		</div>
 	</div>
