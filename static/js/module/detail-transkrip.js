@@ -1,11 +1,19 @@
 import { CihuyDataAPI } from "https://c-craftjs.github.io/lulu/api.js";
 import { UrlGetMhsTranskrip, token } from "../template/template.js";
+import { CihuyDomReady, CihuyQuerySelector } from "https://c-craftjs.github.io/table/table.js";
+import { CihuyId } from "https://c-craftjs.github.io/element/element.js";
 
 // Untuk Get Data Transkrip Nilai Mahasiswa by Id
 // Ambil MhsId dari URL
 const urlParams = new URLSearchParams(window.location.search);
 const MhsId = urlParams.get('MhsId');
 const tableBody = document.getElementById("tablebody");
+const buttonsebelumnya = CihuyId("prevPageBtn");
+const buttonselanjutnya = CihuyId("nextPageBtn");
+const halamansaatini = CihuyId("currentPage");
+const itemperpage = 10;
+let halamannow = 1;
+let filteredData = [];
 
 let mahasiswaData;
 
@@ -40,12 +48,49 @@ CihuyDataAPI(UrlGetMhsTranskrip + `${MhsId}`, token, (error, result) => {
                     <td style="text-align: center; vertical-align: middle">${mahasiswa.grade}</td>
                 `;
                 tableBody.appendChild(row);
+                filteredData.push(row.outerHTML);
             });
+
+            // Untuk memunculkan Pagination halamannya
+            displayData(halamannow);
+            updatePagination();
         } else {
             // Handle the case where there are no subjects
             tableBody.innerHTML = `<tr><td colspan="4">No subjects found</td></tr>`;
         }
     } else {
         console.log(error);
+    }
+});
+
+// Fungsi Untuk Menampilkan Data
+function displayData(page) {
+    const mulaiindex = (page - 1) * itemperpage;
+    const akhirindex = mulaiindex + itemperpage;
+    const rowsToShow = filteredData.slice(mulaiindex, akhirindex);
+    tableBody.innerHTML = rowsToShow.join("");
+}
+
+// Fungsi Untuk Update Pagination
+function updatePagination() {
+    halamansaatini.textContent = `Halaman ${halamannow}`;
+}
+
+// Button Pagination (Sebelumnya)
+buttonsebelumnya.addEventListener("click", () => {
+    if (halamannow > 1) {
+        halamannow--;
+        displayData(halamannow);
+        updatePagination();
+    }
+});
+
+// Button Pagination (Selanjutnya)
+buttonselanjutnya.addEventListener("click", () => {
+    const totalPages = Math.ceil(filteredData.length / itemperpage);
+    if (halamannow < totalPages) {
+        halamannow++;
+        displayData(halamannow);
+        updatePagination();
     }
 });
