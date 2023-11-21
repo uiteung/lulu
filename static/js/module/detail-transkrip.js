@@ -5,6 +5,7 @@ import { UrlGetMhsTranskrip, token } from "../template/template.js";
 // Ambil MhsId dari URL
 const urlParams = new URLSearchParams(window.location.search);
 const MhsId = urlParams.get('MhsId');
+const tableBody = document.getElementById("tablebody");
 
 let mahasiswaData;
 
@@ -25,9 +26,26 @@ CihuyDataAPI(UrlGetMhsTranskrip + `${MhsId}`, token, (error, result) => {
         document.getElementById("ipk").value = mahasiswaData.grade_total;
         document.getElementById("predikat").value = mahasiswaData.predikat_mhs;
         document.getElementById("lulus_tanggal").value = mahasiswaData.graduation_date;
-        document.getElementById("judul_ta_in").value = mahasiswaData.judul_skripsi.judul_indonesia;
-        document.getElementById("judul_ta_en").value = mahasiswaData.judul_skripsi.judul_inggris;
+        document.getElementById("judul_ta_in").value = mahasiswaData.judul_skriptsi.judul_indonesia;
+        document.getElementById("judul_ta_en").value = mahasiswaData.judul_skriptsi.judul_inggris;
+
+        // Tampilkan Data Nilai 
+        if (result.data.subjects && result.data.subjects.length > 0) {
+            result.data.subjects.forEach((mahasiswa) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td style="text-align: center; vertical-align: middle">${mahasiswa.index}</td>
+                    <td style="text-align: center; vertical-align: middle">${mahasiswa.subjname}</td>
+                    <td style="text-align: center; vertical-align: middle">${mahasiswa.credits}</td>
+                    <td style="text-align: center; vertical-align: middle">${mahasiswa.grade}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        } else {
+            // Handle the case where there are no subjects
+            tableBody.innerHTML = `<tr><td colspan="4">No subjects found</td></tr>`;
+        }
     } else {
-        console.log(error)
+        console.log(error);
     }
-})
+});
