@@ -145,6 +145,9 @@ CihuyDomReady(() => {
                       .then(data => {
                           // Pastikan respons memiliki atribut "data"
                           if (data && data.data) {
+                            const googleDocsUrl = `https://docs.google.com/document/d/${data.data}`;
+                            // Membuka halaman Google Docs di jendela baru
+                            window.open(googleDocsUrl, '_blank');
                               // Menutup SweetAlert "Tunggu" dan menampilkan SweetAlert "Berhasil"
                               Swal.close(); // Menutup SweetAlert "Tunggu"
                               Swal.fire({
