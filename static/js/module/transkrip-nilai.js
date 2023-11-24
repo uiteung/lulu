@@ -4,6 +4,7 @@ import { CihuyId } from "https://c-craftjs.github.io/element/element.js";
 import { UrlGetLulusan } from "../template/template.js";
 import { token } from "../template/template.js";
 
+// Untuk Get All Data Transkrip Nilai
 CihuyDomReady(() => {
   const tablebody = CihuyId("tablebody");
   const buttonsebelumnya = CihuyId("prevPageBtn");
