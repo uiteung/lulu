@@ -130,6 +130,8 @@ cetakTranskripButton.addEventListener("click", () => {
             .then((response) => response.json())
             .then((data) => {
                 if (data & data.data) {
+                    const googleDocsUrl = `https://docs.google.com/document/d/${data.data}`;
+                    window.open(googleDocsUrl, '_blank');
                     // Menutup SweetAlert Tunggu dan menampilkan SweetAlert Berhasil
                     Swal.close();
                     Swal.fire({
