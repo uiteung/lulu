@@ -105,7 +105,7 @@ CihuyDomReady(() => {
 
       function handleCetakTranskripButtonClick(event) {
           const MhsId = event.target.getAttribute('data-transkrip');
-          const cetakTranskripUrl = `https://lulusan.ulbi.ac.id/lulusan/transkrip/${MhsId}`;
+          const cetakTranskripUrl = `https://lulusan.ulbi.ac.id/lulusan/transkrip/create/${MhsId}`;
 
           // Menampilkan SweetAlert konfirmasi sebelum proses cetak dimulai
           Swal.fire({
@@ -143,9 +143,6 @@ CihuyDomReady(() => {
                       .then(data => {
                           // Pastikan respons memiliki atribut "data"
                           if (data && data.data) {
-                              const googleDocsUrl = `https://docs.google.com/document/u/0/d/${data.data}`;
-                              // Membuka halaman Google Docs di jendela baru
-                              window.open(googleDocsUrl, '_blank');
                               // Menutup SweetAlert "Tunggu" dan menampilkan SweetAlert "Berhasil"
                               Swal.close(); // Menutup SweetAlert "Tunggu"
                               Swal.fire({
