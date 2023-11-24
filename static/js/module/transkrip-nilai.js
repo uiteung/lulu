@@ -126,6 +126,7 @@ CihuyDomReady(() => {
                       timerProgressBar: true,
                       didOpen: () => {
                           Swal.showLoading();
+                          Swal.getPopup().querySelector("b");
                       }
                   });
 
