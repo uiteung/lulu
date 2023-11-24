@@ -1,5 +1,5 @@
 import { CihuyDataAPI } from "https://c-craftjs.github.io/lulu/api.js";
-import { UrlGetMhsTranskrip, token } from "../template/template.js";
+import { UrlGetMhsTranskrip, UrlGetTranskripNilai, token } from "../template/template.js";
 import { CihuyDomReady, CihuyQuerySelector } from "https://c-craftjs.github.io/table/table.js";
 import { CihuyId } from "https://c-craftjs.github.io/element/element.js";
 
@@ -94,3 +94,34 @@ buttonselanjutnya.addEventListener("click", () => {
         updatePagination();
     }
 });
+
+// Untuk Get Data Transkrip Nilai Mahasiswa By Id
+// Ambil MhsId dari URL
+const cetakTranskripButton = document.getElementById("submitCetakTranskripNilai");
+const apiCetakTranskripNilai = UrlGetTranskripNilai + MhsId
+
+cetakTranskripButton.addEventListener("click", () => {
+    // Tampil SweetAlert Konfirmasi
+    Swal.fire({
+        title : "Konfirmasi Cetak Transkrip Nilai",
+        text : "Apakah Anda yakin ingin mencetak Ijazah?",
+        icon : "question",
+        showCancelButton : true,
+        confirmButtonText : "OK",
+        cancelButtonText : "Batal",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Menampilkan SweetAlert "Tunggu" saat proses cetak transkrip dimulai
+            Swal.fire({
+                icon : "info",
+                title : "Sedang mencetak Transkrip Nilai",
+                html : "Proses cetak transkrip nilai sedang berlangsung. Mohon tunggu.",
+                timerProgressBar : true,
+                didOpen: () => {
+                    Swal.showLoading();
+                    Swal.getPopup().querySelector("b");
+                }
+            });
+        }
+    })
+})
