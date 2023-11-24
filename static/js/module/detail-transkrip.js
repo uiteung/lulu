@@ -122,6 +122,30 @@ cetakTranskripButton.addEventListener("click", () => {
                     Swal.getPopup().querySelector("b");
                 }
             });
+            fetch(apiCetakTranskripNilai, {
+                headers : {
+                    "LOGIN" : token,
+                }
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data & data.data) {
+                    // Menutup SweetAlert Tunggu dan menampilkan SweetAlert Berhasil
+                    Swal.close();
+                    Swal.fire({
+                        title : "Berhasil",
+                        text : "Transkrip Nilai berhasil dicetak!",
+                        icon : "success",
+                    });
+                } else {
+                    console.error("Gagal mengambil data transkrip.");
+                    Swal.close();
+                }
+            })
+            .catch((error) => {
+                console.error("Terjadi kesalahan saat mengambil data transkrip : ", error);
+                Swal.close();
+            })
         }
     })
 })
