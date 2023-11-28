@@ -105,15 +105,16 @@ CihuyDomReady(() => {
           button.addEventListener('click', handleCetakIjazahButtonClick);
       });
   }
+  
 
   function handleCetakIjazahButtonClick(event) {
-      const MhsId = event.target.getAttribute('data-ijazah');
-      const cetakIjazahUrl = `https://lulusan.ulbi.ac.id/lulusan/ijazah/${MhsId}`;
+      const MhsId = event.target.getAttribute('data-transkrip');
+      const cetakTranskripUrl = `https://lulusan.ulbi.ac.id/lulusan/transkrip/create/${MhsId}`;
 
       // Menampilkan Alert Konfirmasi
       Swal.fire({
-          title: 'Konfirmasi Cetak Ijazah',
-          text: 'Apakah Anda yakin ingin mencetak ijazah?',
+          title: 'Konfirmasi Cetak Transkrip Nilai',
+          text: 'Apakah Anda yakin ingin mencetak transkrip nilai?',
           icon: 'question',
           showCancelButton: true,
           confirmButtonText: 'OK',
@@ -131,8 +132,8 @@ CihuyDomReady(() => {
                       Swal.getPopup().querySelector("b");
                   }
               });
-              // Fetch cetakIjazahUrl
-              fetch(cetakIjazahUrl, {
+              // Fetch cetakTranskripUrl
+              fetch(cetakTranskripUrl, {
                   headers: {
                       'LOGIN': token, // Gantilah 'LOGIN' dengan nama header yang sesuai
                   }
@@ -145,14 +146,15 @@ CihuyDomReady(() => {
                   })
                   .then(data => {
                       // Pastikan respons memiliki atribut "data"
-                      if (data && data.data) {
-                          const googleDocsUrl = `https://docs.google.com/document/u/0/d/${data.data}`;
+                      if (data && data.success && data.data && data.data.payload) {
+                          const payload = data.data.payload
+                          const createTranskrip = `https://lulusan.ulbi.ac.id/static/${payload}`;
                           // Membuka halaman Google Docs di jendela baru
-                          window.open(googleDocsUrl, '_blank');
+                          window.open(createTranskrip);
                           // Menampilkan Alert Success
                           Swal.fire({
                               title: 'Berhasil',
-                              text: 'Ijazah berhasil dicetak!',
+                              text: 'Transkrip nilai berhasil dicetak!',
                               icon: 'success',
                           });
                       } else {
@@ -167,4 +169,67 @@ CihuyDomReady(() => {
           }
       });
   }
+
+  function handleCetakTranskripButtonClick(event) {
+    const MhsId = event.target.getAttribute('data-ijazah');
+    const cetakIjazahUrl = `https://lulusan.ulbi.ac.id/lulusan/transkrip/create/${MhsId}`;
+
+    // Menampilkan Alert Konfirmasi
+    Swal.fire({
+        title: 'Konfirmasi Cetak Ijazah',
+        text: 'Apakah Anda yakin ingin mencetak ijazah?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Batal',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Menampilkan SweetAlert "Tunggu" saat proses cetak dimulai
+            Swal.fire({
+                icon: 'info',
+                title: "Sedang mencetak Ijazah",
+                html: "Proses cetak ijazah sedang berlangsung. Mohon tunggu.",
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading();
+                    Swal.getPopup().querySelector("b");
+                }
+            });
+            // Fetch cetakIjazahUrl
+            fetch(cetakIjazahUrl, {
+                headers: {
+                    'LOGIN': token, // Gantilah 'LOGIN' dengan nama header yang sesuai
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Gagal mengambil data');
+                    }
+                    return response.json(); // Mengambil respons dalam format JSON
+                })
+                .then(data => {
+                    // Pastikan respons memiliki atribut "data"
+                    if (data && data.data) {
+                        const googleDocsUrl = `https://docs.google.com/document/u/0/d/${data.data}`;
+                        // Membuka halaman Google Docs di jendela baru
+                        window.open(googleDocsUrl, '_blank');
+                        // Menampilkan Alert Success
+                        Swal.fire({
+                            title: 'Berhasil',
+                            text: 'Ijazah berhasil dicetak!',
+                            icon: 'success',
+                        });
+                    } else {
+                        console.error('Data tidak ditemukan dalam respons.');
+                        // Tampilkan pesan kesalahan jika data tidak ditemukan dalam respons
+                    }
+                })
+                .catch(error => {
+                    console.error('Terjadi kesalahan:', error);
+                    // Tampilkan pesan kesalahan kepada pengguna jika diperlukan
+                });
+        }
+    });
+}
 });
+
