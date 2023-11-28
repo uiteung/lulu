@@ -63,6 +63,68 @@ CihuyDataAPI(UrlGetMhsTranskrip + `${MhsId}`, token, (error, result) => {
     }
 });
 
+// Untuk Cetak Transkrip Nilai by Id
+// Mendefinisikan button untuk cetak terlebih dahulu
+const cetakIjazahButton = document.getElementById("submitCetakTranskripNilai");
+const apiCetakIjazah = UrlGetTranskripNilai + MhsId
+
+cetakIjazahButton.addEventListener("click", () => {
+    // Tampil SweetAlert Konfirmasi
+    Swal.fire({
+        title: "Konfirmasi Cetak Transkrip Nilai",
+        text: "Apakah Anda yakin ingin mencetak transkrip nilai?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "OK",
+        cancelButtonText: "Batal",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Menampilkan SweetAlert "Tunggu" saat proses cetak dimulai
+            Swal.fire({
+                icon: 'info',
+                title: "Sedang mencetak Transkrip Nilai",
+                html: "Proses cetak transkrip nilai sedang berlangsung. Mohon tunggu.",
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading();
+                    Swal.getPopup().querySelector("b");
+                }
+            });
+            // The user confirmed, proceed with printing
+            fetch(apiCetakIjazah, {
+                headers: {
+                    'LOGIN': token,
+                }
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data && data.success && data.data && data.data.payload) {
+                    const payload = data.data.payload;
+                    const cetakTranskrip = `https://lulusan.ulbi.ac.id/static/${payload}`;
+                    window.open(cetakTranskrip);
+              
+                    // Menutup SweetAlert "Tunggu" dan menampilkan SweetAlert "Berhasil"
+                    Swal.close(); // Menutup SweetAlert "Tunggu"
+                    Swal.fire({
+                        title: "Berhasil",
+                        text: "Transkrip Nilai berhasil dicetak!",
+                        icon: "success",
+                    });
+                } else {
+                    console.error("Gagal mengambil data transkrip nilai.");
+                    // Tampilkan pesan kesalahan jika data ijazah tidak ditemukan
+                    Swal.close(); // Menutup SweetAlert "Tunggu"
+                }
+            })
+            .catch((error) => {
+                console.error("Terjadi kesalahan saat mengambil data transkrip nilai:", error);
+                // Tampilkan pesan kesalahan jika terjadi kesalahan
+                Swal.close(); // Menutup SweetAlert "Tunggu"
+            });
+        }
+    });
+});
+
 // Fungsi Untuk Menampilkan Data
 function displayData(page) {
     const mulaiindex = (page - 1) * itemperpage;
@@ -94,60 +156,3 @@ buttonselanjutnya.addEventListener("click", () => {
         updatePagination();
     }
 });
-
-// Untuk Get Data Transkrip Nilai Mahasiswa By Id
-// Ambil MhsId dari URL
-const cetakTranskripButton = document.getElementById("submitCetakTranskripNilai");
-const apiCetakTranskripNilai = UrlGetTranskripNilai + MhsId
-
-cetakTranskripButton.addEventListener("click", () => {
-    // Tampil SweetAlert Konfirmasi
-    Swal.fire({
-        title : "Konfirmasi Cetak Transkrip Nilai",
-        text : "Apakah Anda yakin ingin mencetak Ijazah?",
-        icon : "question",
-        showCancelButton : true,
-        confirmButtonText : "OK",
-        cancelButtonText : "Batal",
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Menampilkan SweetAlert "Tunggu" saat proses cetak transkrip dimulai
-            Swal.fire({
-                icon : "info",
-                title : "Sedang mencetak Transkrip Nilai",
-                html : "Proses cetak transkrip nilai sedang berlangsung. Mohon tunggu.",
-                timerProgressBar : true,
-                didOpen: () => {
-                    Swal.showLoading();
-                    Swal.getPopup().querySelector("b");
-                }
-            });
-            fetch(apiCetakTranskripNilai, {
-                headers : {
-                    "LOGIN" : token,
-                }
-            })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data & data.data) {
-                    const googleDocsUrl = `https://docs.google.com/document/d/${data.data}`;
-                    window.open(googleDocsUrl, '_blank');
-                    // Menutup SweetAlert Tunggu dan menampilkan SweetAlert Berhasil
-                    Swal.close();
-                    Swal.fire({
-                        title : "Berhasil",
-                        text : "Transkrip Nilai berhasil dicetak!",
-                        icon : "success",
-                    });
-                } else {
-                    console.error("Gagal mengambil data transkrip.");
-                    Swal.close();
-                }
-            })
-            .catch((error) => {
-                console.error("Terjadi kesalahan saat mengambil data transkrip : ", error);
-                Swal.close();
-            })
-        }
-    })
-})
