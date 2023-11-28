@@ -54,6 +54,9 @@ CihuyDomReady(() => {
                           displayData(halamannow);
                           updatePagination();
 
+                          // Menambahkan event listener untuk button "Cetak Transkrip Nilai"
+                          addCetakTranskripButtonListeners();  
+
                           // Menambahkan event listener untuk button "Cetak Ijazah"
                           addCetakIjazahButtonListeners();
                       } else {
@@ -105,7 +108,13 @@ CihuyDomReady(() => {
           button.addEventListener('click', handleCetakIjazahButtonClick);
       });
   }
-  
+
+  function addCetakTranskripButtonListeners() {
+    const cetakTranskripButtons = document.querySelectorAll('.btn-success');
+    cetakTranskripButtons.forEach(button => {
+        button.addEventListener('click', handleCetakTranskripButtonClick);
+    })
+  }
 
   function handleCetakIjazahButtonClick(event) {
       const MhsId = event.target.getAttribute('data-transkrip');
