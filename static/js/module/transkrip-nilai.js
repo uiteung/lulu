@@ -144,10 +144,11 @@ CihuyDomReady(() => {
                       })
                       .then(data => {
                           // Pastikan respons memiliki atribut "data"
-                          if (data && data.data) {
-                            const googleDocsUrl = `https://docs.google.com/document/d/${data.data}`;
+                          if (data && data.success && data.data && data.data.payload) {
+                            const payload = data.data.payload;
+                            const createTranskrip = `https://lulusan.ulbi.ac.id/static/${payload}`;
                             // Membuka halaman Google Docs di jendela baru
-                            window.open(googleDocsUrl, '_blank');
+                            window.open(createTranskrip);
                               // Menutup SweetAlert "Tunggu" dan menampilkan SweetAlert "Berhasil"
                               Swal.close(); // Menutup SweetAlert "Tunggu"
                               Swal.fire({
