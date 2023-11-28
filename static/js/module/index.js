@@ -110,13 +110,13 @@ CihuyDomReady(() => {
   }
 
   function addCetakTranskripButtonListeners() {
-    const cetakTranskripButtons = document.querySelectorAll('.btn-success');
+    const cetakTranskripButtons = document.querySelectorAll('.btn-info');
     cetakTranskripButtons.forEach(button => {
         button.addEventListener('click', handleCetakTranskripButtonClick);
     })
   }
 
-  function handleCetakIjazahButtonClick(event) {
+  function handleCetakTranskripButtonClick(event) {
       const MhsId = event.target.getAttribute('data-transkrip');
       const cetakTranskripUrl = `https://lulusan.ulbi.ac.id/lulusan/transkrip/create/${MhsId}`;
 
@@ -179,9 +179,10 @@ CihuyDomReady(() => {
       });
   }
 
-  function handleCetakTranskripButtonClick(event) {
+  
+  function handleCetakIjazahButtonClick(event) {
     const MhsId = event.target.getAttribute('data-ijazah');
-    const cetakIjazahUrl = `https://lulusan.ulbi.ac.id/lulusan/transkrip/create/${MhsId}`;
+    const cetakIjazahUrl = `https://lulusan.ulbi.ac.id/lulusan/ijazah/${MhsId}`;
 
     // Menampilkan Alert Konfirmasi
     Swal.fire({
