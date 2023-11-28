@@ -90,6 +90,39 @@ CihuyDomReady(() => {
       });
   });
 
+  // Fitur untuk search mahasiswa
+  function searchMahasiswa(filteredData) {
+    const searchInput = document.getElementById("searchInput");
+    const tableBody = document.getElementById("tablebody");
+    searchInput.addEventListener("input", function () {
+        const searchText = searchInput.value.toLowerCase();
+
+        // Mengosongkan tabel sebelum memulai pencarian
+        tableBody.innerHTML = "";
+        if (searchText === "") {
+            displayData(halamannow);
+            updatePagination();
+            return;
+        }
+        if (filteredData.length === 0) {
+            // Data belum dimuat, tidak ada yang bisa dicari
+            return;
+        }
+
+        for (const rowHtml of filteredData) {
+            // Mengecek apakah baris mengandung kata kunci pencarian
+            if (rowHtml.toLowerCase().includes(searchText)) {
+                const row = document.createElement("tr");
+                row.innerHTML = rowHtml;
+                tableBody.appendChild(row);
+            }
+        }
+        addDetailButtonListeners();
+        addCetakIjazahButtonListeners();
+        updatePagination();
+    });   
+  }
+
   // Fungsi Untuk Menampilkan Data
   function displayData(page) {
       const mulaiindex = (page - 1) * itemperpage;
@@ -101,6 +134,8 @@ CihuyDomReady(() => {
               visibleRows[i].style.display = "none";
           }
       }
+      addDetailButtonListeners();  
+      addCetakIjazahButtonListeners();  
   }
 
   // Fungsi Untuk Update Pagination
