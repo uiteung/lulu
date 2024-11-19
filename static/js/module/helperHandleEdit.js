@@ -14,8 +14,7 @@ export const handleEditTranskrip = (event) => {
             <form id="editForm" class="needs-validation" novalidate style="margin-top: 20px">
               <div class="form-group pb-3">
                 <label class="fs-5 pb-2 w-100 text-start" for="editSubjcode">Subject Code</label>
-                <input type="text" id="editSubjcode" class="form-control py-2" value="${subjcode}" required>
-                <div class="invalid-feedback w-100 text-start" style="font-size: 12px">Subject Code is required.</div>
+                <input type="text" id="editSubjcode" class="form-control py-2" value="${subjcode}" readonly>
               </div>
               <div class="form-group pb-3">
                 <label class="fs-5 pb-2 w-100 text-start" for="editSubjname">Subject Name</label>
@@ -70,7 +69,6 @@ export const handleEditTranskrip = (event) => {
             return false;
           }
 
-          subjcode = document.getElementById("editSubjcode").value.trim();
           subjname = document.getElementById("editSubjname").value.trim();
           credits = document.getElementById("editCredits").value.trim();
           grade = document.getElementById("editGrade").value;

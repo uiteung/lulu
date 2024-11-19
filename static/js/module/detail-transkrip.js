@@ -68,8 +68,8 @@ CihuyDataAPI(UrlGetMhsTranskrip + `${MhsId}`, token, (error, result) => {
       });
 
       // Untuk memunculkan Pagination halamannya
-      displayData(halamannow);
-      updatePagination();
+      // displayData(halamannow);
+      // updatePagination();
     } else {
       // Handle the case where there are no subjects
       tableBody.innerHTML = `<tr><td colspan="4">No subjects found</td></tr>`;
@@ -150,34 +150,34 @@ cetakIjazahButton.addEventListener("click", () => {
 });
 
 // Fungsi Untuk Menampilkan Data
-function displayData(page) {
-  const mulaiindex = (page - 1) * itemperpage;
-  const akhirindex = mulaiindex + itemperpage;
-  const rowsToShow = filteredData.slice(mulaiindex, akhirindex);
-  tableBody.innerHTML = rowsToShow.join("");
-}
+// function displayData(page) {
+//   const mulaiindex = (page - 1) * itemperpage;
+//   const akhirindex = mulaiindex + itemperpage;
+//   const rowsToShow = filteredData.slice(mulaiindex, akhirindex);
+//   tableBody.innerHTML = rowsToShow.join("");
+// }
 
 // Fungsi Untuk Update Pagination
-function updatePagination() {
-  const totalPages = Math.ceil(filteredData.length / itemperpage);
-  halamansaatini.textContent = `Halaman ${halamannow} dari ${totalPages}`;
-}
+// function updatePagination() {
+//   const totalPages = Math.ceil(filteredData.length / itemperpage);
+//   halamansaatini.textContent = `Halaman ${halamannow} dari ${totalPages}`;
+// }
 
 // Button Pagination (Sebelumnya)
-buttonsebelumnya.addEventListener("click", () => {
-  if (halamannow > 1) {
-    halamannow--;
-    displayData(halamannow);
-    updatePagination();
-  }
-});
+// buttonsebelumnya.addEventListener("click", () => {
+//   if (halamannow > 1) {
+//     halamannow--;
+//     displayData(halamannow);
+//     updatePagination();
+//   }
+// });
 
 // Button Pagination (Selanjutnya)
-buttonselanjutnya.addEventListener("click", () => {
-  const totalPages = Math.ceil(filteredData.length / itemperpage);
-  if (halamannow < totalPages) {
-    halamannow++;
-    displayData(halamannow);
-    updatePagination();
-  }
-});
+// buttonselanjutnya.addEventListener("click", () => {
+//   const totalPages = Math.ceil(filteredData.length / itemperpage);
+//   if (halamannow < totalPages) {
+//     halamannow++;
+//     displayData(halamannow);
+//     updatePagination();
+//   }
+// });
