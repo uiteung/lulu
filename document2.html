@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Transcript</title>
+    <style>
+        @page {
+            size: A4;
+            margin-top: 2.5cm;
+            margin-bottom: 0cm;
+        }
+        .content {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+        }
+        .tg  {
+            border-spacing:0;
+            line-height: 0.1;
+        }
+        .tg2  {
+            border-spacing:0;
+        }
+        .tg td{
+            padding: -5px
+        }
+        .tg th{
+            border-color:black;
+            border-style:solid;
+            border-width:1px;
+            word-break:unset;
+        }
+        .tg-0lax2{
+            padding-left: 10px;
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            vertical-align: top;
+        }
+        .header {
+            line-height: 0.25;
+            text-align: center;
+        }
+        .header_title {
+            font-size: 14pt;
+            margin-top: 0;
+            padding-top: 0;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .header_summary {
+            font-size:10pt;
+        }
+        .header_no {
+            font-size: 12pt;
+            margin-top: 0;
+            padding-top: 0;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .text-title {
+            font-size: 12pt;
+        }
+        .text-summary {
+            font-size:10pt;
+        }
+        .text2-title {
+            font-size: 10pt;
+            margin-top: 0;
+            padding-top: 0;
+            margin-bottom: 0;
+            padding-bottom: 5px;
+        }
+        .text2-summary {
+            font-size:8pt;
+            margin-top: 0;
+            padding-top: 5px;
+            margin-bottom: 8px;
+            padding-bottom: 2px;
+        }
+        .column-nilai {
+            column-count: 2;
+            column-gap: 2.5px;
+            margin-top: 2.5px;
+        }
+        .tabel-nilai {
+            width: 100%;
+            height: 100%;
+            border-collapse: collapse;
+            border: none;
+            margin-bottom: 15px;
+        }
+        .tabel-nilai th, .tabel-nilai td {
+            text-align: center;
+            width: 35%;
+        }
+        .tabel-nilai th {
+            background-color: #aaaaaa;
+        }
+        .tabel-bobot {
+            width: 100%;
+            border-collapse: collapse;
+            border: none;
+        }
+        .tabel-bobot th, .tabel-bobot td {
+            text-align: center;
+            width: 35%;
+        }
+        .tabel-bobot th {
+            background-color: #aaaaaa;
+        }
+        .tabel-bobot th:first-child,
+        .tabel-bobot td:first-child {
+            width: 20%; /* Sesuaikan lebar kolom Nomor/Index */
+        }
+
+        .tabel-bobot th:nth-child(2),
+        .tabel-bobot td:nth-child(2) {
+            width: 5%; /* Sesuaikan lebar kolom Mata Kuliah */
+        }
+        .tabel-bobot th:nth-child(3),
+        .tabel-bobot td:nth-child(3) {
+            width: 20%; /* Sesuaikan lebar kolom SKS dan Grade */
+        }
+
+        thead {
+            display: table-header-group;
+        }
+        hr {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .ttd-placeholder {
+            text-align: center;
+            margin-left: 420px;
+            align-items: start;
+            padding-bottom: 40px;
+        }
+
+        .ttd-p2 {
+            height: 80px;
+        }
+        .student-id-box {
+            line-height: 0.1;
+        }
+        .tabel-head {
+            line-height: 0.5;
+        }
+        .tabel-nilai th:first-child,
+        .tabel-nilai td:first-child {
+            width: 5%; /* Sesuaikan lebar kolom Nomor/Index */
+        }
+
+        .tabel-nilai th:nth-child(2),
+        .tabel-nilai td:nth-child(2) {
+            width: 40%; /* Sesuaikan lebar kolom Mata Kuliah */
+        }
+        .tabel-nilai th:nth-child(3),
+        .tabel-nilai td:nth-child(3),
+        .tabel-nilai th:nth-child(4),
+        .tabel-nilai td:nth-child(4) {
+            width: 10%; /* Sesuaikan lebar kolom SKS dan Grade */
+        }
+        .grade-content {
+            line-height: 1;
+            padding-bottom: 10px;
+        }
+        .grade-title {
+            font-size: 8pt;
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            text-align: left;
+        }
+        .grade-summary {
+            font-size: 7pt;
+            line-height: 0.8;
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .grade-index {
+            font-size: 8pt;
+            margin-top: 0;
+            margin-bottom: 10;
+            padding-top: 0;
+            padding-bottom: 0; 
+            top: 0;
+        }
+        .grade-details {
+            font-size: 8pt;
+            margin-top: 0;
+            margin-bottom: 10;
+            padding-top: 0;
+            padding-bottom: 0; 
+            top: 0;
+        }
+        .text-left {
+            text-align: left;
+            float: left;
+        }
+        .footer {
+            display: table-footer-group;
+        }
+        .tabel_line {
+            width: 100%;
+            border-top: 1px solid #000; /* You can customize the color and style */
+            border-bottom: 1px solid #000; /* You can customize the color and style */
+        }
+        .div_line {
+            width: 100%;
+            border-bottom: 1px solid #000; /* You can customize the color and style */
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+        .footer {
+            bottom: 0;
+            position: fixed;
+            margin-top: 15px;
+        }
+        .student_data {
+            margin-top: 2%;
+            margin-bottom: 2%;
+        }
+        .footer-content {
+            line-height: 0.1;
+        }
+        .footer-title {
+            font-size: 10pt;
+        }
+        .footer-summary {
+            font-size: 8pt;
+        }
+        .footer-col {
+            width: 75%;
+        }
+        .box-paraf {
+            width: 30x; /* Set the width of the box */
+            height: 45px; /* Set the height of the box */
+            border: 0px solid black; /* Set the border properties (width, style, and color) */
+            font-size: 8pt;
+            margin-left: 175px;
+        }
+        .page-num {
+            text-align: right;
+            font-size: 10pt;
+            padding-right: 7px;
+        }
+
+        .page-num p {
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+        .gb-title {
+            font-size: 10pt;
+            margin-top: 10;
+            margin-bottom: 5px;
+            padding-top: 0;
+            padding-bottom: 0; 
+            top: 0;
+            font-weight: 100;
+        }
+        .gb-summary {
+            font-size: 8pt;
+            margin-top: 0;
+            margin-bottom: 10;
+            padding-top: 0;
+            padding-bottom: 0; 
+            top: 0;
+            font-weight: 100;
+        }
+        .dekan p {
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .headg-title {
+            font-size: 10pt;
+            padding-top: 1px;
+            padding-bottom: 1px;
+            margin-top: 3px;
+            margin-bottom: 3px;
+        }
+        .headg-summary {
+            font-size: 8pt;
+            padding-top: 1px;
+            padding-bottom: 1px;
+            margin-top: 3px;
+            margin-bottom: 3px;
+        }
+        .hm-text {
+            font-size: 10px;
+        }
+        .no-size {
+            font-size: 0px;
+            height: 0px;
+        }
+        .breaker {
+            display: flex;
+            margin-top: 1px;
+            margin-bottom: 1px;
+        }
+        .tg-0lax{
+            vertical-align: top;
+        }
+        .nilai-align {
+            vertical-align: top;
+        }
+        .transparent-text {
+            color: transparent;
+        }
+</style>
+</head>
+
+<body>
+    <div class="content">
+        <p class="header_no">No: {{.NoTranskrip}}</p>
+        <div class="header">
+            <p class=".header_title"><b>TRANSKRIP AKADEMIK</b></p>
+            <p class="header_summary"><i>ACADEMIC TRANSCRIPT</i></p>
+        </div>
+        <div class="page-num">
+            <p>Hal: 2</p>
+            <p style="font-size: 8pt;"><i>Page: 2</i></p>
+        </div>
+        <div class="column-nilai">
+            <table class="tabel-nilai">
+                <thead>
+                    <tr class="tabel-head tabel_line">
+                        <th>
+                            <p class="headg-title">NO.</p>
+                            <p class="headg-summary"><i>No.</i></p>
+                        </th>
+                        <th>
+                            <p class="headg-title">KODE MATA KULIAH</p>
+                            <p class="headg-summary"><i>Course Code</i></p>
+                        </th>
+                        <th>
+                            <p class="headg-title">MATA KULIAH</p>
+                            <p class="headg-summary"><i>Course</i></p>
+                        </th>
+                        <th>
+                            <p class="headg-title">SKS</p>
+                            <p class="headg-summary"><i>Credits</i></p>
+                        </th>
+                        <th>
+                            <p class="headg-title">HM</p>
+                            <p class="headg-summary"><i>Letter<br><br>Grade</i></p>
+                        </th>
+                    </tr>
+                </thead>
+                </table>
+                <table class="tabel-nilai">
+                    <thead>
+                    <tr class="tabel-head tabel_line">
+                        <th>
+                            <p class="headg-title">NO.</p>
+                            <p class="headg-summary"><i>No.</i></p>
+                        </th>
+                        <th>
+                            <p class="headg-title">KODE MATA KULIAH</p>
+                            <p class="headg-summary"><i>Course Code</i></p>
+                        </th>
+                        <th>
+                            <p class="headg-title">MATA KULIAH</p>
+                            <p class="headg-summary"><i>Course</i></p>
+                        </th>
+                        <th>
+                            <p class="headg-title">SKS</p>
+                            <p class="headg-summary"><i>Credits</i></p>
+                        </th>
+                        <th>
+                            <p class="headg-title">HM</p>
+                            <p class="headg-summary"><i>Letter<br><br>Grade</i></p>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="column-nilai">
+            <table class="tabel-nilai">
+                <tbody>
+                    {{range $index, $subject := .Subjects}}
+                    <tr class="grade-content nilai-align">
+                        <td class="nilai-align">
+                            <p class="grade-title nilai-align"> </p>
+                            <p class="grade-title nilai-align">{{$subject.Index}}</p>
+                            <p class="grade-title nilai-align"> </p>
+                        </td>
+                        <td>
+                            <p class="grade-title text-left nilai-align">{{$subject.mkid}} <br>
+                            <span class="grade-summary text-left nilai-align"><i>{{$subject.mkideng}}</i></span>
+                            </p>                            
+                        </td>
+                        <td>
+                            <left>
+                                <span class="grade-title text-left nilai-align">{{$subject.Subjname}}<br>
+                                <p class="grade-summary text-left nilai-align"><i>{{$subject.Subjnameeng}}</i></p></span>        
+                            </left>
+                        </td>
+                        <td>
+                            <p class="grade-details nilai-align">{{$subject.Credits}}</p>
+                            <p class="grade-details nilai-align"> </p>
+                            <p class="grade-details nilai-align"> </p>
+                        </td>
+                        <td>
+                            <p class="grade-details nilai-align">{{$subject.Grade}}</p>
+                            <p class="grade-details nilai-align"> </p>
+                            <p class="grade-details nilai-align"> </p>
+                        </td>
+                    </tr>
+                    {{end}}
+                    
+                    {{if eq (mod (len $.Subjects) 2) 1}}
+                    <!-- Handle case when there are odd number of subjects -->
+                    <tr id="ghost-data" class="grade-content">
+                        <td class="nilai-align">
+                            <p class="grade-index"> </p>
+                            <p class="grade-index"> </p>
+                            <p class="grade-index"> </p>
+                        </td>
+                        <td>
+                            <p class="grade-title text-left"> </p>
+                            <p class="grade-summary text-left"><i> </i></p>
+                            <p class="grade-summary text-left"> </p>                            
+                        </td>
+                        <td>
+                            <p class="grade-details"> </p>
+                            <p class="grade-details"> </p>
+                            <p class="grade-details"> </p>
+                        </td>
+                        <td>
+                            <p class="grade-details"> </p>
+                            <p class="grade-details"> </p>
+                            <p class="grade-details"> </p>
+                        </td>
+                    </tr>
+
+                    <tr id="ghost-data" class="grade-content">
+                        <td class="nilai-align">
+                            <p class="grade-index"> </p>
+                            <p class="grade-index"> </p>
+                            <p class="grade-index"> </p>
+                        </td>
+                        <td>
+                            <p class="grade-title text-left"> </p>
+                            <p class="grade-summary text-left"><i> </i></p>
+                            <p class="grade-summary text-left"> </p>                            
+                        </td>
+                        <td>
+                            <p class="grade-details"> </p>
+                            <p class="grade-details"> </p>
+                            <p class="grade-details"> </p>
+                        </td>
+                        <td>
+                            <p class="grade-details"> </p>
+                            <p class="grade-details"> </p>
+                            <p class="grade-details"> </p>
+                        </td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="div_line"></div>
+
+        <div class="student_data">
+            <b2>
+            <table class="tg">
+                <tbody>
+                    <tr>
+                        <td style="width: 25%;" class="tg-0lax">
+                            <p class="text2-title">Jumlah SKS</p>
+                            <p class="text2-summary"><i>Total Credits</i></p>
+                        </td>
+                        <td style="width: 2%;" class="tg-0lax">
+                            <p class="text2-title"> : </p>
+                            <p class="text2-title"> </p>
+                        </td>
+                        <td class="tg-0lax">
+                          <p class="text2-title">{{.CreditsTotal}}</p>
+                          <p class="text2-summary"><i>{{.CreditsTotal}}<i></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 25%;" class="tg-0lax">
+                            <p class="text2-title"></p>
+                        </td>
+                        <td style="width: 2%;" class="tg-0lax">
+                            <p class="text2-title"> </p>
+                        </td>
+                        <td class="tg-0lax">
+                          <p class="text2-title"> </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 25%;" class="tg-0lax">
+                            <p class="text2-title">Indeks Prestasi Kumulatif (IPK)</p>
+                            <p class="text2-summary"><i>Cumulative Grade Point Average</i></p>
+                        </td>
+                        <td style="width: 2%;" class="tg-0lax">
+                            <p class="text2-title"> : </p>
+                            <p class="text2-title"> </p>
+                        </td>
+                        <td class="tg-0lax">
+                          <p class="text2-title">{{.GradeTotal}}</p>
+                          <p class="text2-summary"><i>{{.GradeTotal}}<i></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 25%;" class="tg-0lax">
+                            <p class="text2-title"></p>
+                        </td>
+                        <td style="width: 2%;" class="tg-0lax">
+                            <p class="text2-title"> </p>
+                        </td>
+                        <td class="tg-0lax">
+                          <p class="text2-title"> </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 25%;" class="tg-0lax">
+                            <p class="text2-title">Lulus Pada</p>
+                            <p class="text2-summary"><i>Graduation Date</i></p>
+                        </td>
+                        <td style="width: 2%;" class="tg-0lax">
+                            <p class="text2-title"> : </p>
+                            <p class="text2-title"> </p>
+                        </td>
+                        <td class="tg-0lax">
+                          <p class="text2-title">{{.GraduationDate}}</p>
+                          <p class="text2-summary"><i>{{.GraduationDateEng}}<i></p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="width: 25%;" class="tg-0lax">
+                            <p class="text2-title"></p>
+                        </td>
+                        <td style="width: 2%;" class="tg-0lax">
+                            <p class="text2-title"> </p>
+                        </td>
+                        <td class="tg-0lax">
+                          <p class="text2-title"> </p>
+                        </td>
+                    </tr>
+                      <tr>
+                        <td style="width: 25%;" class="tg-0lax">
+                            <p class="text2-title">Predikat</p>
+                            <p class="text2-summary"><i>Predicate</i></p>
+                        </td>
+                        <td style="width: 2%;" class="tg-0lax">
+                            <p class="text2-title"> : </p>
+                            <p class="text2-title"> </p>
+                        </td>
+                        <td class="tg-0lax">
+                          <p class="text2-title">{{.PredikatMhs}}</p>
+                          <p class="text2-summary"><i>{{.PredikatMhsEng}}<i></p>
+                        </td> 
+                        <tr>
+                            <td style="width: 25%;" class="tg-0lax">
+                                <p class="text2-title"></p>
+                            </td>
+                            <td style="width: 2%;" class="tg-0lax">
+                                <p class="text2-title"> </p>
+                            </td>
+                            <td class="tg-0lax">
+                              <p class="text2-title"> </p>
+                            </td>
+                        </tr>
+                    </tr>
+                    <tr style="line-height: 1;" >
+                      <td style="width: 25%;" style="line-height: 1;" class="tg-0lax">
+                          <p class="text2-title">Judul Skripsi/Tugas Akhir</p>
+                          <p class="text2-title"> </p>
+                      </td>
+                      <td style="width: 2%;" class="tg-0lax">
+                        <p class="text2-title"> : </p>
+                    </td>
+                      <td class="tg-0lax">
+                          <p class="text2-title">{{.JudulSkriptsi.JudulIndonesia}}</span>
+                          <p class="text2-title"> </p>
+                      </td>
+                  </tr>
+                  <tr style="line-height: 1;">
+                      <td class="tg-0lax">
+                          <p class="text2-title">Title of Thesis/Final Assignment</p>
+                          <p class="text2-title"> </p>
+                      </td>
+                      <td style="width: 2%;" class="tg-0lax">
+                        <p class="text2-title"> : </p>
+                        <p class="text2-title"> </p>
+                    </td>
+                    <td class="tg-0lax">
+                          <p class="text2-title"><i>{{.JudulSkriptsi.JudulInggris}}</i></p>
+                          <p class="text2-title"> </p>
+                      </td>
+                  </tr>
+                </tbody>
+            </table>
+
+            <div class="div_line"></div>
+
+            <table class="tg">
+                <tbody>
+                    <tr>
+                        <td style="width: 25%;" class="tg-0lax">
+                            <p class="text2-title"></p>
+                        </td>
+                        <td style="width: 2%;" class="tg-0lax">
+                            <p class="text2-title"> </p>
+                        </td>
+                        <td class="tg-0lax">
+                          <p class="text2-title"> </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="tg">
+                <tbody>
+                    <tr>
+                        <td style="width: 25%;" class="tg-0lax">
+                            <p class="text2-title"></p>
+                        </td>
+                        <td style="width: 2%;" class="tg-0lax">
+                            <p class="text2-title"> </p>
+                        </td>
+                        <td class="tg-0lax">
+                          <p class="text2-title"> </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="tg">
+                <tbody>
+                    <tr>
+                        <td style="width: 25%;" class="tg-0lax">
+                            <p class="text2-title"></p>
+                        </td>
+                        <td style="width: 2%;" class="tg-0lax">
+                            <p class="text2-title"> </p>
+                        </td>
+                        <td class="tg-0lax">
+                          <p class="text2-title"> </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 25%;" class="tg-0lax">
+                            <p class="text2-title">Diterbitkan di</p>
+                            <p class="text2-summary"><i>Issued in</i></p>
+                        </td>
+                        <td style="width: 2%;" class="tg-0lax">
+                            <p class="text2-title transparent-text"> : </p>
+                            <p class="text2-title"> </p>
+                        </td>
+                        <td class="tg-0lax">
+                          <p class="text2-title">{{.TempatTerbit}}</p>
+                          <p class="text2-summary"><i>{{.TempatTerbit}}<i></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 25%;" class="tg-0lax">
+                            <p class="text2-title"></p>
+                        </td>
+                        <td style="width: 2%;" class="tg-0lax">
+                            <p class="text2-title"> </p>
+                        </td>
+                        <td class="tg-0lax">
+                          <p class="text2-title"> </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 25%;" class="tg-0lax">
+                            <p class="text2-title">Tanggal</p>
+                            <p class="text2-summary"><i>Date</i></p>
+                        </td>
+                        <td style="width: 2%;" class="tg-0lax">
+                            <p class="text2-title transparent-text"> : </p>
+                            <p class="text2-title"> </p>
+                        </td>
+                        <td class="tg-0lax">
+                          <p class="text2-title">{{.TanggalTerbit}}</p>
+                          <p class="text2-summary"><i>{{.TanggalTerbitEng}}<i></p>
+                        </td>
+                      </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="student_data">
+            <table class="tg2"> <!-- a-->
+                <thead> <!-- a -->
+                    <tr> <!-- a -->
+
+                        <td class="tg-0lax">
+                            <table style="width: 150%;" class="tabel-bobot">
+                                <thead>
+                                    <tr class="tabel-head tabel_line">
+                                        <th>
+                                            <p class="gb-title"> HURUF MUTU </p>
+                                            <p class="gb-summary"><i>Letter Grade</i></p>
+                                        </th>
+                                        <th>
+
+                                        </th>
+                                        <th>
+                                            <p class="gb-title"> BOBOT NILAI </p>
+                                            <p class="gb-summary"><i>Weight</i></p>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="div_line grade-title1">
+                                    <!-- Add table rows with data here -->
+                                    <tr class="text2-title">
+                                        <td class="text2-title">A</td>
+                                        <td class="text2-title"> = </td>
+                                        <td class="text2-title">4.0</td>
+                                    </tr>
+                                    <tr class="text2-title">
+                                        <td class="text2-title">AB</td>
+                                        <td class="text2-title"> = </td>
+                                        <td class="text2-title">3.5</td>
+                                    </tr>
+                                    <tr class="text2-summary">
+                                        <td class="text2-title">B</td>
+                                        <td class="text2-title"> = </td>
+                                        <td class="text2-title">3.0</td>
+                                    </tr>
+                                    <tr class="text2-summary">
+                                        <td class="text2-title">BC</td>
+                                        <td class="text2-title"> = </td>
+                                        <td class="text2-title">2.5</td>
+                                    </tr>
+                                    <tr class="text2-summary">
+                                        <td class="text2-title">C</td>
+                                        <td class="text2-title"> = </td>
+                                        <td class="text2-title">2.0</td>
+                                    </tr>
+                                    <tr class="text2-summary">
+                                        <td class="text2-title">D</td>
+                                        <td class="text2-title"> = </td>
+                                        <td class="text2-title">1.0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    
+                        <td class="tg-0lax">
+                            <div class="ttd-placeholder">
+                                <div class="dekan">
+                                    <p>Dekan</p>
+                                    <p style="font-size: 10pt;"><i>Dean</i></p>
+                                </div>
+                                <div class="ttd-p2">
+                                    <div class="dekan">
+                                        <p>{{.FakultasMhs}}</p>
+                                        <p style="font-size: 10pt;"><i>{{.FakultasMhsEng}}</i></p>
+                                    </div>
+                                <div class="ttd-p2">
+                                </div>
+                                <div class="dekan">
+                                    <p><b>{{.NamaDekan}}</b></p>
+                                    <p>NIK: {{.NikDekan}}</p>
+                                </div>
+                            </div>
+                        </td>                
+                     </tr>
+                </thead> <!-- a -->
+            </table><!-- a -->
+        </div>
+    </div> <!-- content -->
+</body>
+
+</html>
