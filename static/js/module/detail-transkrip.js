@@ -4,11 +4,6 @@ import {
   UrlGetTranskripNilai,
   token,
 } from "../template/template.js";
-import {
-  CihuyDomReady,
-  CihuyQuerySelector,
-} from "https://c-craftjs.github.io/table/table.js";
-import { CihuyId } from "https://c-craftjs.github.io/element/element.js";
 import { handleEditTranskrip } from "./helperHandleEdit.js";
 
 // Untuk Get Data Transkrip Nilai Mahasiswa by Id
@@ -16,11 +11,6 @@ import { handleEditTranskrip } from "./helperHandleEdit.js";
 const urlParams = new URLSearchParams(window.location.search);
 const MhsId = urlParams.get("MhsId");
 const tableBody = document.getElementById("tablebody");
-const buttonsebelumnya = CihuyId("prevPageBtn");
-const buttonselanjutnya = CihuyId("nextPageBtn");
-const halamansaatini = CihuyId("currentPage");
-const itemperpage = 10;
-let halamannow = 1;
 let filteredData = [];
 
 let mahasiswaData;
@@ -68,8 +58,6 @@ CihuyDataAPI(UrlGetMhsTranskrip + `${MhsId}`, token, (error, result) => {
       });
 
       // Untuk memunculkan Pagination halamannya
-      // displayData(halamannow);
-      // updatePagination();
     } else {
       // Handle the case where there are no subjects
       tableBody.innerHTML = `<tr><td colspan="4">No subjects found</td></tr>`;
@@ -80,9 +68,9 @@ CihuyDataAPI(UrlGetMhsTranskrip + `${MhsId}`, token, (error, result) => {
 });
 
 // Pemanggilan fungsi edit transkrip
-document
-  .getElementById("tablebody")
-  .addEventListener("click", handleEditTranskrip);
+document.getElementById("tablebody").addEventListener("click", (event) => {
+  handleEditTranskrip(event, MhsId);
+});
 
 // Untuk Cetak Transkrip Nilai by Id
 // Mendefinisikan button untuk cetak terlebih dahulu
@@ -148,36 +136,3 @@ cetakIjazahButton.addEventListener("click", () => {
     }
   });
 });
-
-// Fungsi Untuk Menampilkan Data
-// function displayData(page) {
-//   const mulaiindex = (page - 1) * itemperpage;
-//   const akhirindex = mulaiindex + itemperpage;
-//   const rowsToShow = filteredData.slice(mulaiindex, akhirindex);
-//   tableBody.innerHTML = rowsToShow.join("");
-// }
-
-// Fungsi Untuk Update Pagination
-// function updatePagination() {
-//   const totalPages = Math.ceil(filteredData.length / itemperpage);
-//   halamansaatini.textContent = `Halaman ${halamannow} dari ${totalPages}`;
-// }
-
-// Button Pagination (Sebelumnya)
-// buttonsebelumnya.addEventListener("click", () => {
-//   if (halamannow > 1) {
-//     halamannow--;
-//     displayData(halamannow);
-//     updatePagination();
-//   }
-// });
-
-// Button Pagination (Selanjutnya)
-// buttonselanjutnya.addEventListener("click", () => {
-//   const totalPages = Math.ceil(filteredData.length / itemperpage);
-//   if (halamannow < totalPages) {
-//     halamannow++;
-//     displayData(halamannow);
-//     updatePagination();
-//   }
-// });
