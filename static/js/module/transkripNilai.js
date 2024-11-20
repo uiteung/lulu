@@ -37,14 +37,17 @@ cariMahasiswaBtn.addEventListener("click", function () {
       let no = 1;
       mahasiswaData = result.data[0];
 
+      console.log(mahasiswaData);
+
       //   // Tampilkan Data Profil Mahasiswa
-      //   document.getElementById("nama_mahasiswa").value = mahasiswaData.nama_mhs;
-      //   document.getElementById("npm").value = mahasiswaData.nomor_induk_mhs;
-      //   document.getElementById("tmpt_tgl_lahir").value = mahasiswaData.ttl_mhs;
-      //   document.getElementById("tahun_masuk").value =
-      //     mahasiswaData.tahun_masuk_mhs;
-      //   document.getElementById("fakultas").value = mahasiswaData.fakultas_mhs;
-      //   document.getElementById("program_studi").value = mahasiswaData.prodi_mhs;
+      document.getElementById("nama_mahasiswa").value = mahasiswaData.nama;
+      document.getElementById("npm").value = mahasiswaData.npm;
+      document.getElementById("tmpt_tgl_lahir").value =
+        mahasiswaData.tempat_tanggal_lahir;
+      document.getElementById("tahun_masuk").value = mahasiswaData.tahun_masuk;
+      // document.getElementById("fakultas").value = mahasiswaData;
+      document.getElementById("program_studi").value =
+        mahasiswaData.transkrip_data[0].attributes.program_studi;
 
       //   // Tampilkan Data Nilai dan Tugas Akhir
       //   document.getElementById("sks").value = mahasiswaData.credits_total;
