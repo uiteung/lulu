@@ -36,6 +36,9 @@ CihuyDomReady(() => {
             tableBody.innerHTML = "";
             filteredData = [];
 
+            console.log(data.data);
+            
+
             if (data.success) {
               // Tambahkan data mahasiswa ke dalam tabel
               data.data.forEach((mahasiswa) => {

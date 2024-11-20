@@ -141,8 +141,7 @@ export const handleEditMataKuliah = (event) => {
             <form id="editForm" class="needs-validation" novalidate style="margin-top: 20px">
               <div class="form-group pb-3">
                 <label class="fs-5 pb-2 w-100 text-start" for="editMKKode">Kode Mata Kuliah</label>
-                <input type="text" id="editMKKode" class="form-control py-2" value="${MKKode}" required>
-                <div class="invalid-feedback w-100 text-start" style="font-size: 12px">Kode Mata Kuliah is required.</div>
+                <input type="text" id="editMKKode" class="form-control py-2 bg-body-secondary" value="${MKKode}">
               </div>
               <div class="form-group pb-3">
                 <label class="fs-5 pb-2 w-100 text-start" for="editNama">Nama Mata Kuliah</label>
@@ -176,12 +175,11 @@ export const handleEditMataKuliah = (event) => {
             return false;
           }
 
-          MKKode = document.getElementById("editMKKode").value.trim();
           Nama = document.getElementById("editNama").value.trim();
           Nama_en = document.getElementById("editNamaEn").value.trim();
           SKS = document.getElementById("editSKS").value;
 
-          return { MKKode, Nama, Nama_en, SKS };
+          return { Nama, Nama_en, SKS };
         },
       }).then((result) => {
         if (result.isConfirmed) {
@@ -196,7 +194,6 @@ export const handleEditMataKuliah = (event) => {
             cancelButtonText: "No, go back",
           }).then((confirmResult) => {
             if (confirmResult.isConfirmed) {
-              row.cells[0].innerText = editedData.MKKode;
               row.cells[1].innerText = editedData.Nama;
               row.cells[2].innerText = editedData.Nama_en;
               row.cells[3].innerText = editedData.SKS;
