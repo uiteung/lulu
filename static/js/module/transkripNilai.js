@@ -40,26 +40,27 @@ cariMahasiswaBtn.addEventListener("click", function () {
       console.log(mahasiswaData);
 
       //   // Tampilkan Data Profil Mahasiswa
-      document.getElementById("nama_mahasiswa").value = mahasiswaData.nama;
-      document.getElementById("npm").value = mahasiswaData.npm;
-      document.getElementById("tmpt_tgl_lahir").value =
-        mahasiswaData.tempat_tanggal_lahir;
-      document.getElementById("tahun_masuk").value = mahasiswaData.tahun_masuk;
-      // document.getElementById("fakultas").value = mahasiswaData;
-      document.getElementById("program_studi").value =
-        mahasiswaData.transkrip_data[0].attributes.program_studi;
+      document.getElementById("nama_mahasiswa").value = mahasiswaData.nama_mhs;
+      document.getElementById("npm").value = mahasiswaData.nomor_induk_mh;
+      document.getElementById("tmpt_tgl_lahir").value = mahasiswaData.ttl_mhs;
+      document.getElementById("tahun_masuk").value =
+        mahasiswaData.tahun_masuk_mhs;
+      document.getElementById("fakultas").value = mahasiswaData.fakultas_mhs;
+      document.getElementById("program_studi").value = mahasiswaData.prodi_mhs;
 
-      //   // Tampilkan Data Nilai dan Tugas Akhir
-      //   document.getElementById("sks").value = mahasiswaData.credits_total;
-      //   document.getElementById("ipk").value = mahasiswaData.grade_total;
-      //   document.getElementById("predikat").value = mahasiswaData.predikat_mhs;
-      //   document.getElementById("lulus_tanggal").value =
-      //     mahasiswaData.graduation_date;
-      document.getElementById("judul_ta_in").value = mahasiswaData.judul;
-      document.getElementById("judul_ta_en").value = mahasiswaData.judul_en;
+      // Tampilkan Data Nilai dan Tugas Akhir
+      document.getElementById("sks").value = mahasiswaData.credits_total;
+      document.getElementById("ipk").value = mahasiswaData.grade_total;
+      document.getElementById("predikat").value = mahasiswaData.predikat_mhs;
+      document.getElementById("lulus_tanggal").value =
+        mahasiswaData.graduation_date;
+      document.getElementById("judul_ta_in").value =
+        mahasiswaData.judul_indonesia;
+      document.getElementById("judul_ta_en").value =
+        mahasiswaData.judul_inggris;
 
       if (result.data && result.data.length > 0) {
-        result.data[0].transkrip_data.forEach((mahasiswa) => {
+        result.data[0].subjects.forEach((mahasiswa) => {
           const row = document.createElement("tr");
           row.innerHTML = `
                         <td style="text-align: center; vertical-align: middle">${no++}</td>
