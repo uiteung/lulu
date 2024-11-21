@@ -1,10 +1,9 @@
 import { CihuyDataAPI } from "https://c-craftjs.github.io/lulu/api.js";
 import {
   UrlGetAllMhsTranskrip,
-  UrlGetTranskripNilai,
+  UrlGetCetakTranskrip,
   token,
 } from "../template/template.js";
-import { handleEditTranskrip } from "./helperHandleEdit.js";
 
 // Untuk Get Data Transkrip Nilai Mahasiswa by Id
 // Ambil MhsId dari URL
@@ -18,10 +17,7 @@ const cariMahasiswaBtn = document.getElementById("cariMahasiswaBtn");
 cariMahasiswaBtn.addEventListener("click", function () {
   const MhsId = document.getElementById("search-npm").value;
 
-  if (MhsId !== null && MhsId !== "") {
-    document.getElementById("main-content").style.display = "block";
-    document.getElementById("main-cetak-btn").style.display = "block";
-  } else {
+  if (MhsId === null && MhsId === "") {
     Swal.fire({
       title: "Informasi",
       text: "Mohon input pencarian diisi dengan benar",
@@ -30,10 +26,25 @@ cariMahasiswaBtn.addEventListener("click", function () {
 
     document.getElementById("main-content").style.display = "none";
     document.getElementById("main-cetak-btn").style.display = "none";
+    return;
   }
 
+  Swal.fire({
+    title: "Sedang memuat data",
+    html: "Mohon tunggu sebentar...",
+    allowOutsideClick: false, // Agar modal tidak tertutup jika pengguna klik di luar
+    didOpen: () => {
+      Swal.showLoading(); // Tampilkan loading spinner
+    },
+  });
+
   CihuyDataAPI(UrlGetAllMhsTranskrip + MhsId, token, (error, result) => {
+    Swal.close();
+
     if (!error && result.success) {
+      document.getElementById("main-content").style.display = "block";
+      document.getElementById("main-cetak-btn").style.display = "block";
+
       let no = 1;
       mahasiswaData = result.data[0];
 
@@ -88,6 +99,24 @@ cariMahasiswaBtn.addEventListener("click", function () {
       }
     } else {
       console.log(error);
+
+      if (!MhsId) {
+        Swal.fire({
+          title: "Informasi",
+          text: "Mohon input pencarian diisi dengan benar",
+          icon: "info",
+        });
+
+        document.getElementById("main-content").style.display = "none";
+        document.getElementById("main-cetak-btn").style.display = "none";
+        return;
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: "Terjadi kesalahan saat mengambil data.",
+          icon: "error",
+        });
+      }
     }
   });
 
@@ -96,7 +125,7 @@ cariMahasiswaBtn.addEventListener("click", function () {
   const cetakIjazahButton = document.getElementById(
     "submitCetakTranskripNilai"
   );
-  const apiCetakIjazah = UrlGetTranskripNilai + MhsId;
+  const apiCetakIjazah = UrlGetCetakTranskrip + MhsId;
 
   cetakIjazahButton.addEventListener("click", () => {
     // Tampil SweetAlert Konfirmasi
@@ -128,9 +157,11 @@ cariMahasiswaBtn.addEventListener("click", function () {
         })
           .then((response) => response.json())
           .then((data) => {
-            if (data && data.success && data.data && data.data.payload) {
-              const payload = data.data.payload;
-              const cetakTranskrip = `https://lulusan.ulbi.ac.id/static/${payload}`;
+            console.log(data);
+
+            if (data && data.success && data.data && data.data.document_id) {
+              const documentId = data.data.document_id;
+              const cetakTranskrip = `https://lulusan.ulbi.ac.id/static/${documentId}`;
               window.open(cetakTranskrip);
 
               // Menutup SweetAlert "Tunggu" dan menampilkan SweetAlert "Berhasil"

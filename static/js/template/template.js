@@ -14,3 +14,6 @@ export let UrlUpdateGradeMhs =
   "https://lulusan.ulbi.ac.id/lulusan/transkrip/update/"; // path update grade mata kuliah
 export let UrlGetAllMhsTranskrip =
   "https://lulusan.ulbi.ac.id/lulusan/transkrip/sevima/"; // path all mhs
+export let UrlGetCetakTranskrip =
+  "https://lulusan.ulbi.ac.id/lulusan/transkrip/sevima/create/"; // path cetak mhs
+
