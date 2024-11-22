@@ -141,7 +141,7 @@ cariMahasiswaBtn.addEventListener("click", function () {
   );
 
   // Nonaktifkan tombol dan mulai hitungan mundur
-  let countdownCetak = 45; // Hitungan mundur dalam detik
+  let countdownCetak = 60; // Hitungan mundur dalam detik
   cetakIjazahButton.disabled = true; // Nonaktifkan tombol
   cetakIjazahButton.textContent = `Mohon tunggu ${countdownCetak} detik`;
 
@@ -159,22 +159,6 @@ cariMahasiswaBtn.addEventListener("click", function () {
   const apiCetakTranskrip = UrlGetCetakTranskrip + MhsId;
 
   cetakIjazahButton.addEventListener("click", () => {
-    // Nonaktifkan tombol dan mulai hitungan mundur
-    let countdownCetak = 45; // Hitungan mundur dalam detik
-    cetakIjazahButton.disabled = true; // Nonaktifkan tombol
-    cetakIjazahButton.textContent = `Mohon tunggu ${countdownCetak} detik`;
-
-    const intervalCetak = setInterval(() => {
-      countdownCetak--;
-      if (countdownCetak > 0) {
-        cetakIjazahButton.textContent = `Mohon tunggu ${countdownCetak} detik`;
-      } else {
-        clearInterval(intervalCetak);
-        cetakIjazahButton.disabled = false; // Aktifkan tombol kembali
-        cetakIjazahButton.textContent = "Cetak Transkrip Nilai";
-      }
-    }, 1000);
-
     // Tampil SweetAlert Konfirmasi
     Swal.fire({
       title: "Konfirmasi Cetak Transkrip Nilai",
@@ -214,10 +198,12 @@ cariMahasiswaBtn.addEventListener("click", function () {
             if (data && data.success && data.data && data.data.document_id) {
               const createTranskrip = `https://lulusan.ulbi.ac.id/static/${data.data.document_id}`;
 
-              console.log(createTranskrip);
-
               // Membuka halaman Google Docs di jendela baru
-              window.open(createTranskrip);
+              const link = document.createElement("a");
+              link.href = createTranskrip;
+              link.target = "_blank";
+              link.click();
+              //   window.open(createTranskrip);
               // Menutup SweetAlert "Tunggu" dan menampilkan SweetAlert "Berhasil"
               Swal.close(); // Menutup SweetAlert "Tunggu"
               Swal.fire({
