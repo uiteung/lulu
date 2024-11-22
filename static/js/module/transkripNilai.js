@@ -8,16 +8,19 @@ import {
 // Untuk Get Data Transkrip Nilai Mahasiswa by Id
 // Ambil MhsId dari URL
 const tableBody = document.getElementById("tablebody");
+const cariMahasiswaBtn = document.getElementById("cariMahasiswaBtn");
+
 let filteredData = [];
 
 let mahasiswaData;
-
-const cariMahasiswaBtn = document.getElementById("cariMahasiswaBtn");
+let intervalMhs; // Variabel global untuk interval tombol Mahasiswa
+let intervalCetak;
 
 cariMahasiswaBtn.addEventListener("click", function () {
   const MhsId = document.getElementById("search-npm").value;
 
-  if (MhsId === null && MhsId === "") {
+  // Cek apakah input kosong
+  if (!MhsId) {
     Swal.fire({
       title: "Informasi",
       text: "Mohon input pencarian diisi dengan benar",
@@ -26,15 +29,15 @@ cariMahasiswaBtn.addEventListener("click", function () {
 
     document.getElementById("main-content").style.display = "none";
     document.getElementById("main-cetak-btn").style.display = "none";
-    return;
+    return; // Hentikan eksekusi jika input kosong
   }
 
   // Nonaktifkan tombol dan mulai hitungan mundur
-  let countdownMhs = 30; // Hitungan mundur dalam detik
+  let countdownMhs = 60; // Hitungan mundur dalam detik
   cariMahasiswaBtn.disabled = true; // Nonaktifkan tombol
   cariMahasiswaBtn.textContent = `Mohon tunggu ${countdownMhs} detik`;
 
-  const intervalMhs = setInterval(() => {
+  intervalMhs = setInterval(() => {
     countdownMhs--;
     if (countdownMhs > 0) {
       cariMahasiswaBtn.textContent = `Mohon tunggu ${countdownMhs} detik`;
@@ -64,7 +67,7 @@ cariMahasiswaBtn.addEventListener("click", function () {
       let no = 1;
       mahasiswaData = result.data[0];
 
-      //   // Tampilkan Data Profil Mahasiswa
+      // Tampilkan Data Profil Mahasiswa
       document.getElementById("nama_mahasiswa").value = mahasiswaData.nama_mhs;
       document.getElementById("npm").value = mahasiswaData.nomor_induk_mh;
       document.getElementById("tmpt_tgl_lahir").value = mahasiswaData.ttl_mhs;
@@ -88,48 +91,43 @@ cariMahasiswaBtn.addEventListener("click", function () {
         result.data[0].subjects.forEach((mahasiswa) => {
           const row = document.createElement("tr");
           row.innerHTML = `
-                        <td style="text-align: center; vertical-align: middle">${no++}</td>
-                        <td style="text-align: center; vertical-align: middle">${
-                          mahasiswa.attributes.kode_mata_kuliah
-                        }</td>
-                        <td style="vertical-align: middle">${
-                          mahasiswa.attributes.nama_mata_kuliah
-                        }</td>
-                        <td style="vertical-align: middle">${
-                          mahasiswa.attributes.nama_mata_kuliah_en
-                        }</td>
-                        <td style="text-align: center; vertical-align: middle">${
-                          mahasiswa.attributes.sks_mata_kuliah
-                        }</td>
-                    `;
+                          <td style="text-align: center; vertical-align: middle">${no++}</td>
+                          <td style="text-align: center; vertical-align: middle">${
+                            mahasiswa.attributes.kode_mata_kuliah
+                          }</td>
+                          <td style="vertical-align: middle">${
+                            mahasiswa.attributes.nama_mata_kuliah
+                          }</td>
+                          <td style="vertical-align: middle">${
+                            mahasiswa.attributes.nama_mata_kuliah_en
+                          }</td>
+                          <td style="text-align: center; vertical-align: middle">${
+                            mahasiswa.attributes.sks_mata_kuliah
+                          }</td>
+                      `;
           tableBody.appendChild(row);
           filteredData.push(row.outerHTML);
         });
-
-        // Untuk memunculkan Pagination halamannya
       } else {
-        // Handle the case where there are no subjects
+        // Jika tidak ada mata kuliah
         tableBody.innerHTML = `<tr><td colspan="4">No subjects found</td></tr>`;
       }
     } else {
-      console.log(error);
+      console.error(error);
+      Swal.fire({
+        title: "Error",
+        text: "Terjadi kesalahan saat mengambil data.",
+        icon: "error",
+      });
 
-      if (!MhsId) {
-        Swal.fire({
-          title: "Informasi",
-          text: "Mohon input pencarian diisi dengan benar",
-          icon: "info",
-        });
-
-        document.getElementById("main-content").style.display = "none";
-        document.getElementById("main-cetak-btn").style.display = "none";
-        return;
-      } else {
-        Swal.fire({
-          title: "Error",
-          text: "Terjadi kesalahan saat mengambil data.",
-          icon: "error",
-        });
+      // Reset interval cetak jika data gagal
+      if (intervalCetak) {
+        clearInterval(intervalCetak);
+        const cetakIjazahButton = document.getElementById(
+          "submitCetakTranskripNilai"
+        );
+        cetakIjazahButton.disabled = false; // Aktifkan kembali tombol cetak
+        cetakIjazahButton.textContent = "Cetak Transkrip Nilai";
       }
     }
   });
@@ -140,12 +138,11 @@ cariMahasiswaBtn.addEventListener("click", function () {
     "submitCetakTranskripNilai"
   );
 
-  // Nonaktifkan tombol dan mulai hitungan mundur
   let countdownCetak = 60; // Hitungan mundur dalam detik
   cetakIjazahButton.disabled = true; // Nonaktifkan tombol
   cetakIjazahButton.textContent = `Mohon tunggu ${countdownCetak} detik`;
 
-  const intervalCetak = setInterval(() => {
+  intervalCetak = setInterval(() => {
     countdownCetak--;
     if (countdownCetak > 0) {
       cetakIjazahButton.textContent = `Mohon tunggu ${countdownCetak} detik`;
@@ -194,22 +191,43 @@ cariMahasiswaBtn.addEventListener("click", function () {
             return response.json(); // Mengambil respons dalam format JSON
           })
           .then((data) => {
-            // Pastikan respons memiliki atribut "data"
             if (data && data.success && data.data && data.data.document_id) {
               const createTranskrip = `https://lulusan.ulbi.ac.id/static/${data.data.document_id}`;
 
-              // Membuka halaman Google Docs di jendela baru
-              const link = document.createElement("a");
-              link.href = createTranskrip;
-              link.target = "_blank";
-              link.click();
-              //   window.open(createTranskrip);
               // Menutup SweetAlert "Tunggu" dan menampilkan SweetAlert "Berhasil"
               Swal.close(); // Menutup SweetAlert "Tunggu"
               Swal.fire({
                 title: "Berhasil",
                 text: "Transkrip nilai berhasil dicetak!",
                 icon: "success",
+              }).then(() => {
+                // Setelah pengguna menutup pesan berhasil, coba buka PDF
+                let newWindow;
+                try {
+                  // Membuka halaman PDF di tab baru
+                  newWindow = window.open(createTranskrip, "_blank");
+
+                  if (
+                    !newWindow ||
+                    newWindow.closed ||
+                    typeof newWindow.closed === "undefined"
+                  ) {
+                    // Jika pop-up diblok, tampilkan pesan informasi
+                    Swal.fire({
+                      title: "Informasi",
+                      text: "Pop-up browser Anda berkemungkinan diblokir. Mohon izinkan akses pop-up dan silahkan cetak kembali.",
+                      icon: "info",
+                      showConfirmButton: true,
+                    });
+                  }
+                } catch (error) {
+                  console.error("Error membuka dokumen:", error);
+                  Swal.fire({
+                    title: "Error",
+                    text: "Terjadi kesalahan saat membuka dokumen.",
+                    icon: "error",
+                  });
+                }
               });
             } else {
               console.error("Data tidak ditemukan dalam respons.");
