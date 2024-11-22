@@ -29,6 +29,22 @@ cariMahasiswaBtn.addEventListener("click", function () {
     return;
   }
 
+  // Nonaktifkan tombol dan mulai hitungan mundur
+  let countdownMhs = 30; // Hitungan mundur dalam detik
+  cariMahasiswaBtn.disabled = true; // Nonaktifkan tombol
+  cariMahasiswaBtn.textContent = `Mohon tunggu ${countdownMhs} detik`;
+
+  const intervalMhs = setInterval(() => {
+    countdownMhs--;
+    if (countdownMhs > 0) {
+      cariMahasiswaBtn.textContent = `Mohon tunggu ${countdownMhs} detik`;
+    } else {
+      clearInterval(intervalMhs);
+      cariMahasiswaBtn.disabled = false; // Aktifkan tombol kembali
+      cariMahasiswaBtn.textContent = "Cari Mahasiswa";
+    }
+  }, 1000);
+
   Swal.fire({
     title: "Sedang memuat data",
     html: "Mohon tunggu sebentar...",
@@ -47,8 +63,6 @@ cariMahasiswaBtn.addEventListener("click", function () {
 
       let no = 1;
       mahasiswaData = result.data[0];
-
-      console.log(mahasiswaData);
 
       //   // Tampilkan Data Profil Mahasiswa
       document.getElementById("nama_mahasiswa").value = mahasiswaData.nama_mhs;
@@ -125,9 +139,42 @@ cariMahasiswaBtn.addEventListener("click", function () {
   const cetakIjazahButton = document.getElementById(
     "submitCetakTranskripNilai"
   );
-  const apiCetakIjazah = UrlGetCetakTranskrip + MhsId;
+
+  // Nonaktifkan tombol dan mulai hitungan mundur
+  let countdownCetak = 45; // Hitungan mundur dalam detik
+  cetakIjazahButton.disabled = true; // Nonaktifkan tombol
+  cetakIjazahButton.textContent = `Mohon tunggu ${countdownCetak} detik`;
+
+  const intervalCetak = setInterval(() => {
+    countdownCetak--;
+    if (countdownCetak > 0) {
+      cetakIjazahButton.textContent = `Mohon tunggu ${countdownCetak} detik`;
+    } else {
+      clearInterval(intervalCetak);
+      cetakIjazahButton.disabled = false; // Aktifkan tombol kembali
+      cetakIjazahButton.textContent = "Cetak Transkrip Nilai";
+    }
+  }, 1000);
+
+  const apiCetakTranskrip = UrlGetCetakTranskrip + MhsId;
 
   cetakIjazahButton.addEventListener("click", () => {
+    // Nonaktifkan tombol dan mulai hitungan mundur
+    let countdownCetak = 45; // Hitungan mundur dalam detik
+    cetakIjazahButton.disabled = true; // Nonaktifkan tombol
+    cetakIjazahButton.textContent = `Mohon tunggu ${countdownCetak} detik`;
+
+    const intervalCetak = setInterval(() => {
+      countdownCetak--;
+      if (countdownCetak > 0) {
+        cetakIjazahButton.textContent = `Mohon tunggu ${countdownCetak} detik`;
+      } else {
+        clearInterval(intervalCetak);
+        cetakIjazahButton.disabled = false; // Aktifkan tombol kembali
+        cetakIjazahButton.textContent = "Cetak Transkrip Nilai";
+      }
+    }, 1000);
+
     // Tampil SweetAlert Konfirmasi
     Swal.fire({
       title: "Konfirmasi Cetak Transkrip Nilai",
@@ -149,40 +196,44 @@ cariMahasiswaBtn.addEventListener("click", function () {
             Swal.getPopup().querySelector("b");
           },
         });
-        // The user confirmed, proceed with printing
-        fetch(apiCetakIjazah, {
+
+        // Fetch cetakTranskripUrl
+        fetch(apiCetakTranskrip, {
           headers: {
-            LOGIN: token,
+            LOGIN: token, // Gantilah 'LOGIN' dengan nama header yang sesuai
           },
         })
-          .then((response) => response.json())
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Gagal mengambil data");
+            }
+            return response.json(); // Mengambil respons dalam format JSON
+          })
           .then((data) => {
-            console.log(data);
-
+            // Pastikan respons memiliki atribut "data"
             if (data && data.success && data.data && data.data.document_id) {
-              const documentId = data.data.document_id;
-              const cetakTranskrip = `https://lulusan.ulbi.ac.id/static/${documentId}`;
-              window.open(cetakTranskrip);
+              const createTranskrip = `https://lulusan.ulbi.ac.id/static/${data.data.document_id}`;
 
+              console.log(createTranskrip);
+
+              // Membuka halaman Google Docs di jendela baru
+              window.open(createTranskrip);
               // Menutup SweetAlert "Tunggu" dan menampilkan SweetAlert "Berhasil"
               Swal.close(); // Menutup SweetAlert "Tunggu"
               Swal.fire({
                 title: "Berhasil",
-                text: "Transkrip Nilai berhasil dicetak!",
+                text: "Transkrip nilai berhasil dicetak!",
                 icon: "success",
               });
             } else {
-              console.error("Gagal mengambil data transkrip nilai.");
-              // Tampilkan pesan kesalahan jika data ijazah tidak ditemukan
+              console.error("Data tidak ditemukan dalam respons.");
+              // Tampilkan pesan kesalahan jika data tidak ditemukan dalam respons
               Swal.close(); // Menutup SweetAlert "Tunggu"
             }
           })
           .catch((error) => {
-            console.error(
-              "Terjadi kesalahan saat mengambil data transkrip nilai:",
-              error
-            );
-            // Tampilkan pesan kesalahan jika terjadi kesalahan
+            console.error("Terjadi kesalahan:", error);
+            // Tampilkan pesan kesalahan kepada pengguna jika diperlukan
             Swal.close(); // Menutup SweetAlert "Tunggu"
           });
       }
