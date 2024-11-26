@@ -18,8 +18,6 @@ let filteredData = [];
 
 CihuyDataAPI(UrlGetAllMhsTranskrip, token, (error, result) => {
   // console.log(result.data);
-  console.log(result);
-  
 
   let no = 1;
 
@@ -42,9 +40,13 @@ CihuyDataAPI(UrlGetAllMhsTranskrip, token, (error, result) => {
                                   <button type="button" class="btn btn-info" data-transkrip="${
                                     mahasiswa.npm
                                   }">Detail</button>
-                                  <button type="button" class="btn ${statusDownload ? "btn-success" : "btn-danger"} cetak" data-transkrip="${
-                                    mahasiswa.npm
-                                  }">Cetak Transkrip Nilai</button>
+                                  <button type="button" class="btn ${
+                                    statusDownload
+                                      ? "btn-success"
+                                      : "btn-danger"
+                                  } cetak" data-transkrip="${
+        mahasiswa.npm
+      }">Cetak Transkrip Nilai</button>
                               </td>
                           `;
       tableBody.appendChild(row);
