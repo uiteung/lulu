@@ -27,13 +27,13 @@ CihuyDataAPI(UrlGetAllMhsTranskrip, token, (error, result) => {
       const statusDownload = mahasiswa.status_download;
       row.innerHTML = `
                               <td style="text-align: center; vertical-align: middle">${no++}</td>
-                              <td style="text-align: center; vertical-align: middle">${
+                              <td style="vertical-align: middle">${
                                 mahasiswa.npm
                               }</td>
-                              <td style="text-align: center; vertical-align: middle">${
+                              <td style="vertical-align: middle">${
                                 mahasiswa.nama
                               }</td>
-                              <td style="text-align: center; vertical-align: middle">${
+                              <td style="vertical-align: middle">${
                                 mahasiswa.program_studi
                               }</td>
                               <td style="text-align: center; vertical-align: middle">
