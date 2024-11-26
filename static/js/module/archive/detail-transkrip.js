@@ -3,8 +3,8 @@ import {
   UrlGetMhsTranskrip,
   UrlGetTranskripNilai,
   token,
-} from "../template/template.js";
-import { handleEditTranskrip } from "./helperHandleEdit.js";
+} from "../../template/template.js";
+import { handleEditTranskrip } from "../helperHandleEdit.js";
 
 // Untuk Get Data Transkrip Nilai Mahasiswa by Id
 // Ambil MhsId dari URL

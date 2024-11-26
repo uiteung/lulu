@@ -4,8 +4,8 @@ import {
   CihuyQuerySelector,
 } from "https://c-craftjs.github.io/table/table.js";
 import { CihuyId } from "https://c-craftjs.github.io/element/element.js";
-import { UrlGetLulusan } from "../template/template.js";
-import { token } from "../template/template.js";
+import { UrlGetLulusan } from "../../template/template.js";
+import { token } from "../../template/template.js";
 
 // Untuk Get All Data Transkrip Nilai
 CihuyDomReady(() => {
