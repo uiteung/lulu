@@ -59,7 +59,7 @@ function renderTable(page) {
               mahasiswa.npm
             }">Detail</button>
             <button type="button" class="btn ${
-              statusDownload ? "btn-success" : "btn-danger"
+              statusDownload ? "btn-danger" : "btn-success"
             } cetak" data-transkrip="${
         mahasiswa.npm
       }">Cetak Transkrip Nilai</button>
