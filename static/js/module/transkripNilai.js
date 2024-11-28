@@ -25,9 +25,6 @@ CihuyDataAPI(UrlGetAllMhsTranskrip, token, (error, result) => {
     originalData = result.data; // Simpan data asli
     filteredData = [...originalData]; // Filter awal = semua data
 
-    console.log(originalData);
-    
-
     // Render tabel awal
     renderTable(currentPage);
     updatePagination();
@@ -60,9 +57,9 @@ function renderTable(page) {
             }">Detail</button>
             <button type="button" class="btn ${
               statusDownload ? "btn-danger" : "btn-success"
-            } cetak" data-transkrip="${
-        mahasiswa.npm
-      }">Cetak Transkrip Nilai</button>
+            } cetak" data-transkrip="${mahasiswa.npm}">${
+        statusDownload ? "Cetak Transkrip Nilai" : "Cetak Transkrip Nilai"
+      }</button>
             <button type="button" class="btn btn-warning sinkron" data-sinkron="${
               mahasiswa.npm
             }">Sinkron</button>
@@ -71,8 +68,25 @@ function renderTable(page) {
     })
     .join("");
 
-  // Tambahkan event listener setelah render
   addEventListeners();
+}
+
+function updateCetakButtonStatus(MhsId, newStatus) {
+  // Cari tombol cetak berdasarkan data-transkrip
+  const cetakButton = document.querySelector(
+    `.cetak[data-transkrip="${MhsId}"]`
+  );
+
+  if (cetakButton) {
+    // Perbarui warna tombol berdasarkan status baru
+    if (newStatus === true) {
+      cetakButton.classList.remove("btn-danger");
+      cetakButton.classList.add("btn-success");
+    } else {
+      cetakButton.classList.remove("btn-success");
+      cetakButton.classList.add("btn-danger");
+    }
+  }
 }
 
 // Fungsi untuk memperbarui pagination
@@ -135,9 +149,7 @@ function addEventListeners() {
   document
     .querySelectorAll(".sinkron")
     .forEach((btn) =>
-      btn.addEventListener("click", (event) =>
-        handleSinkronButtonClick(event)
-      )
+      btn.addEventListener("click", (event) => handleSinkronButtonClick(event))
     );
 }
 
@@ -178,8 +190,11 @@ function handleCetakTranskripButtonClick(event) {
         })
         .then((data) => {
           Swal.close();
+
           if (data.success && data.data.document_id) {
             Swal.close(); // Menutup SweetAlert "Tunggu"
+            updateCetakButtonStatus(MhsId, data.success);
+
             Swal.fire({
               title: "Berhasil",
               text: "Transkrip nilai berhasil dicetak!",
