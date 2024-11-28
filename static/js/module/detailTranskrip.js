@@ -13,11 +13,13 @@ let mahasiswaData;
 
 CihuyDataAPI(UrlGetIdMhsTranskrip + MhsId, token, (error, result) => {
   let no = 1;
-  mahasiswaData = result.data;
 
+
+  
   console.log("Error:", error); // Log error jika ada
   console.log("Result:", result); // Log hasil respons
-
+  
+  mahasiswaData = result.data;
   // Tampilkan Data Profil Mahasiswa
   document.getElementById("nama_mahasiswa").value = mahasiswaData.nama;
   document.getElementById("npm").value = mahasiswaData.npm;

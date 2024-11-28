@@ -20,3 +20,5 @@ export let UrlGetIdMhsTranskrip =
   "https://lulusan.ulbi.ac.id/lulusan/transkrip/sevima/dev/"; // path id mhs
 export let UrlGetCetakTranskrip =
   "https://lulusan.ulbi.ac.id/lulusan/transkrip/sevima/create/dev/"; // path cetak mhs
+export let UrlSinkronData =
+  "https://lulusan.ulbi.ac.id/lulusan/transkrip/sevima/sikron/dev/"; // path cetak mhs
