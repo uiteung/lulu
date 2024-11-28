@@ -34,7 +34,7 @@ CihuyDataAPI(UrlGetIdMhsTranskrip + MhsId, token, (error, result) => {
   document.getElementById("ipk").value = mahasiswaData.grade_total;
   document.getElementById("predikat").value = mahasiswaData.nama_predikat;
   document.getElementById("lulus_tanggal").value =
-    mahasiswaData.graduation_date;
+    mahasiswaData.graduation_date_eng;
   document.getElementById("judul_ta_in").value = mahasiswaData.judul;
   document.getElementById("judul_ta_en").value = mahasiswaData.judul_en;
 

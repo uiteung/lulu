@@ -25,6 +25,9 @@ CihuyDataAPI(UrlGetAllMhsTranskrip, token, (error, result) => {
     originalData = result.data; // Simpan data asli
     filteredData = [...originalData]; // Filter awal = semua data
 
+    console.log(originalData);
+    
+
     // Render tabel awal
     renderTable(currentPage);
     updatePagination();
