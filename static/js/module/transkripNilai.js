@@ -246,54 +246,72 @@ function handleCetakTranskripButtonClick(event) {
 // Fungsi tombol sinkron
 function handleSinkronButtonClick(event) {
   const sinkronButtons = document.querySelectorAll(".sinkron");
-
   const MhsId = event.target.getAttribute("data-sinkron");
   const apiUrl = UrlSinkronData + MhsId;
 
-  let countdown = 60; // Hitungan mundur dalam detik
+  // Nonaktifkan tombol sinkronisasi
   sinkronButtons.forEach((button) => {
-    button.disabled = true; // Nonaktifkan semua tombol
-    button.textContent = `Tunggu ${countdown} detik`;
+    button.disabled = true;
   });
 
-  const interval = setInterval(() => {
-    countdown--;
-    if (countdown > 0) {
-      sinkronButtons.forEach((button) => {
-        button.textContent = `Tunggu ${countdown} detik`;
-      });
-    } else {
-      clearInterval(interval);
-      sinkronButtons.forEach((button) => {
-        button.disabled = false; // Aktifkan semua tombol kembali
-        button.textContent = "Sinkron";
-      });
-    }
-  }, 1000);
+  // SweetAlert dengan progres
+  let progress = 0; // Awal progres
+  let interval; // Variabel interval
 
   Swal.fire({
     icon: "info",
     title: "Sinkronisasi",
-    text: "Proses sinkronisasi sedang berlangsung.",
-    timerProgressBar: true,
+    html: `<strong>Proses sinkronisasi sedang berlangsung...</strong><br/><br/>
+           <div id="progress-bar" style="width: 100%; background: #ccc; border-radius: 5px; overflow: hidden;">
+             <div id="progress" style="width: 0%; height: 10px; background: #3085d6;"></div>
+           </div>
+           <p id="progress-text" style="margin-top: 10px;">0%</p>`,
     allowOutsideClick: false,
-    didOpen: () => Swal.showLoading(),
+    didOpen: () => {
+      Swal.showLoading();
+
+      // Interval untuk memperkirakan progres
+      interval = setInterval(() => {
+        if (progress < 95) {
+          progress += 5; // Tambahkan progres hingga 95%
+          document.getElementById("progress").style.width = `${progress}%`;
+          document.getElementById("progress-text").textContent = `${progress}%`;
+        }
+      }, 500); // Update setiap 500ms
+    },
   });
 
+  // Proses API
   fetch(apiUrl, { headers: { LOGIN: token } })
     .then((response) => {
       if (!response.ok) throw new Error("Fetch failed");
       return response.json();
     })
     .then((data) => {
-      Swal.close();
+      clearInterval(interval); // Hentikan interval progres
+      progress = 100; // Set progres menjadi 100% saat selesai
+      document.getElementById("progress").style.width = `${progress}%`;
+      document.getElementById("progress-text").textContent = `${progress}%`;
+
+      Swal.close(); // Tutup alert loading
 
       if (data.success === true) {
         Swal.fire("Berhasil", data.message, "success");
+      } else {
+        Swal.fire("Gagal", "Sinkronisasi gagal dilakukan.", "error");
       }
     })
     .catch((err) => {
+      clearInterval(interval); // Hentikan interval progres
+      Swal.close();
       Swal.fire("Error", "Sinkronisasi gagal", "error");
       console.error(err);
+    })
+    .finally(() => {
+      // Aktifkan kembali tombol sinkronisasi
+      sinkronButtons.forEach((button) => {
+        button.disabled = false;
+        button.textContent = "Sinkron";
+      });
     });
 }
